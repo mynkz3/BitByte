@@ -12,7 +12,7 @@ describe("App", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /start a research search/i }),
+      screen.getByRole("button", { name: /analyze my research/i }),
     ).toBeInTheDocument();
   });
 });

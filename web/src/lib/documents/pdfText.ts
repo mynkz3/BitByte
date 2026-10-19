@@ -1,18 +1,14 @@
-import {
-  GlobalWorkerOptions,
-  getDocument,
-  type PDFDocumentProxy,
-} from "pdfjs-dist";
+import type { PDFDocumentProxy } from "pdfjs-dist";
 import { joinPageText } from "./textCleanup";
 
-GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url,
-).toString();
-
 export async function extractPdfText(file: File): Promise<string> {
+  const pdfjs = await import("pdfjs-dist");
+  pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+    "pdfjs-dist/build/pdf.worker.min.mjs",
+    import.meta.url,
+  ).toString();
   const bytes = new Uint8Array(await file.arrayBuffer());
-  const document = await getDocument({ data: bytes }).promise;
+  const document = await pdfjs.getDocument({ data: bytes }).promise;
   return extractPdfDocumentText(document);
 }
 
