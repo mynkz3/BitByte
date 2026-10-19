@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CatalogStatus } from "../features/catalog/CatalogStatus";
+import type { CatalogStatusValue } from "../features/catalog/CatalogStatus";
+import { loadCatalog } from "../features/catalog/catalogLoader";
 import { extractDocxText } from "../lib/documents/docxText";
 import { extractPdfText } from "../lib/documents/pdfText";
+import { loadWasmEngine, type WasmSearchEngine } from "../lib/wasm/bitbyteEngine";
 import { extractRequirementsFromText } from "../features/research-input/extractRequirements";
 import { localKeywordExtractor } from "../features/research-input/localExtractor";
 import { ResearchInput } from "../features/research-input/ResearchInput";
 import { PriorityControls } from "../features/requirements/PriorityControls";
-import {
-  RequirementsForm,
-  } from "../features/requirements/RequirementsForm";
+import { RequirementsForm } from "../features/requirements/RequirementsForm";
+import { buildResearchQuery } from "../features/requirements/queryBuilder";
 import {
   toEditableRequirements,
   type EditableRequirement,
@@ -16,6 +18,7 @@ import {
 } from "../features/requirements/requirementsState";
 import { ResultsList } from "../features/results/ResultsList";
 import type { QueryPriorities } from "../types/query";
+import type { RankedResult } from "../types/results";
 
 const DEFAULT_PRIORITIES: QueryPriorities = {
   text_relevance: 0.3,
@@ -32,15 +35,70 @@ export function App() {
   const [suggestions, setSuggestions] = useState<EditableRequirement[]>([]);
   const [priorities, setPriorities] = useState(DEFAULT_PRIORITIES);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [catalogStatus, setCatalogStatus] = useState<CatalogStatusValue>("loading");
+  const [catalogMessage, setCatalogMessage] = useState("Preparing the local catalog");
+  const [wasmEngine, setWasmEngine] = useState<WasmSearchEngine | null>(null);
+  const [results, setResults] = useState<RankedResult[]>([]);
   const [confirmed, setConfirmed] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    if (typeof window === "undefined" || typeof fetch === "undefined") return undefined;
+
+    void loadCatalog()
+      .then(async (loaded) => {
+        const engine = await loadWasmEngine(loaded.artifact);
+        if (!active) return;
+        setWasmEngine(engine);
+        setCatalogStatus("ready");
+        setCatalogMessage(
+          loaded.warning ?? `Catalog ${loaded.manifest.catalog_version} is ready`,
+        );
+      })
+      .catch((loadError: unknown) => {
+        if (!active) return;
+        setCatalogStatus("error");
+        setCatalogMessage(
+          loadError instanceof Error ? loadError.message : "The catalog could not be loaded",
+        );
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const analyzeResearch = () => {
     if (!researchText.trim()) return;
-    const extracted = extractRequirementsFromText(researchText, localKeywordExtractor);
+    const extractor = wasmEngine
+      ? { extract: (text: string) => wasmEngine.extractRequirements(text) }
+      : localKeywordExtractor;
+    const extracted = extractRequirementsFromText(researchText, extractor);
     setSuggestions(toEditableRequirements(extracted.suggestions));
     setConfirmed(false);
     setError(null);
+  };
+
+  const searchCatalog = () => {
+    setConfirmed(true);
+    if (!wasmEngine) {
+      setError("The local catalog is still loading. Try again in a moment.");
+      return;
+    }
+
+    setIsSearching(true);
+    setError(null);
+    try {
+      const query = buildResearchQuery(researchText, suggestions, priorities);
+      setResults(wasmEngine.search(query, 10));
+    } catch (searchError: unknown) {
+      setResults([]);
+      setError(searchError instanceof Error ? searchError.message : "The search failed");
+    } finally {
+      setIsSearching(false);
+    }
   };
 
   const handleFileSelected = async (file: File) => {
@@ -77,7 +135,7 @@ export function App() {
           <span className="brand-mark">B</span>
           <span>BitByte</span>
         </a>
-        <CatalogStatus status="loading" message="Preparing the local catalog" />
+        <CatalogStatus status={catalogStatus} message={catalogMessage} />
       </header>
       <section className="page-intro" aria-labelledby="app-title">
         <p className="eyebrow">Research data, without the scavenger hunt</p>
@@ -103,7 +161,7 @@ export function App() {
             onRemove={(index) =>
               setSuggestions((current) => current.filter((_, itemIndex) => itemIndex !== index))
             }
-            onConfirm={() => setConfirmed(true)}
+            onConfirm={searchCatalog}
           />
           <PriorityControls priorities={priorities} onChange={setPriorities} />
           {confirmed ? (
@@ -113,7 +171,7 @@ export function App() {
             </p>
           ) : null}
         </div>
-        <ResultsList results={[]} />
+        <ResultsList results={results} isSearching={isSearching} />
       </div>
     </main>
   );

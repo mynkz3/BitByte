@@ -1,0 +1,120 @@
+{
+  "catalog_version": "fixture-catalog",
+  "schema_version": "0.1.0",
+  "records": [
+    {
+      "identity": {
+        "id": "huggingface:bitbyte/demo-image",
+        "source": "huggingface",
+        "source_id": "bitbyte/demo-image",
+        "canonical_url": "https://huggingface.co/datasets/bitbyte/demo-image",
+        "alternate_urls": []
+      },
+      "content": {
+        "title": "Demo Retinal Images",
+        "summary": "A labeled retinal image dataset for classification.",
+        "search_text": "demo retinal images image classification medical retinopathy",
+        "tags": ["image", "classification", "medical"],
+        "citation": "BitByte Demo Dataset, 2026"
+      },
+      "fit": {
+        "modalities": ["image"],
+        "tasks": ["classification"],
+        "domains": ["medical"],
+        "targets": ["retinopathy"],
+        "languages": ["en"],
+        "geography": [],
+        "time_range": {"start": null, "end": null},
+        "annotation_types": ["image_labels"],
+        "attributes": {"image": {"width": 224, "height": 224, "channels": 3}}
+      },
+      "practical": {
+        "size": {"bytes": 1200000, "records": 1000, "features": null},
+        "splits": {"train": true, "validation": true, "test": true},
+        "license": {
+          "spdx_id": "MIT",
+          "label": "MIT",
+          "url": "https://spdx.org/licenses/MIT.html",
+          "category": "permissive"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.9,
+        "availability_status": "reachable",
+        "warnings": [],
+        "last_verified_at": "2026-10-19T00:00:00Z"
+      },
+      "evidence": {
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Image classification dataset",
+          "confidence": 0.94
+        }
+      },
+      "provenance": {
+        "adapter_version": "huggingface-0.1.0",
+        "extracted_at": "2026-10-19T00:00:00Z",
+        "source_updated_at": null,
+        "schema_version": "0.1.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "openml:demo-text",
+        "source": "openml",
+        "source_id": "demo-text",
+        "canonical_url": "https://www.openml.org/d/demo-text",
+        "alternate_urls": []
+      },
+      "content": {
+        "title": "Demo Text Classification Dataset",
+        "summary": "A text sentiment classification dataset.",
+        "search_text": "demo text sentiment classification social science",
+        "tags": ["text", "classification"],
+        "citation": "BitByte Demo Text Dataset, 2026"
+      },
+      "fit": {
+        "modalities": ["text"],
+        "tasks": ["classification"],
+        "domains": ["social_science"],
+        "targets": ["sentiment"],
+        "languages": ["en"],
+        "geography": [],
+        "time_range": {"start": null, "end": null},
+        "annotation_types": ["class_labels"],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {"bytes": 800000, "records": 900, "features": 2},
+        "splits": {"train": true, "validation": false, "test": true},
+        "license": {
+          "spdx_id": "MIT",
+          "label": "MIT",
+          "url": "https://spdx.org/licenses/MIT.html",
+          "category": "permissive"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.85,
+        "availability_status": "reachable",
+        "warnings": [],
+        "last_verified_at": "2026-10-19T00:00:00Z"
+      },
+      "evidence": {
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Text sentiment classification dataset",
+          "confidence": 0.9
+        }
+      },
+      "provenance": {
+        "adapter_version": "openml-0.1.0",
+        "extracted_at": "2026-10-19T00:00:00Z",
+        "source_updated_at": null,
+        "schema_version": "0.1.0"
+      }
+    }
+  ]
+}

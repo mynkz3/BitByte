@@ -117,3 +117,18 @@ fn priority_weights_change_the_score_without_changing_hard_filters() {
     assert_eq!(results.len(), 1);
     assert!(results[0].score_breakdown.text_relevance >= 0.0);
 }
+
+#[test]
+fn json_search_bridge_serializes_ranked_results() {
+    let json = engine()
+        .search_json(&serde_json::to_string(&query_fixture()).unwrap(), 10)
+        .expect("JSON search should serialize");
+    let results: Vec<serde_json::Value> =
+        serde_json::from_str(&json).expect("serialized search should be valid JSON");
+
+    assert_eq!(results.len(), 1);
+    assert_eq!(
+        results[0]["dataset"]["identity"]["id"],
+        "huggingface:bitbyte/demo-image"
+    );
+}

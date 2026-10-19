@@ -105,6 +105,37 @@ impl RankingEngine {
         serde_json::to_string(&results)
             .map_err(|error| format!("could not serialize results: {error}"))
     }
+
+    pub fn search_numeric(
+        &self,
+        query: &ResearchQuery,
+        limit: usize,
+    ) -> Result<Vec<[f64; 10]>, String> {
+        self.search(query, limit).map(|results| {
+            results
+                .into_iter()
+                .filter_map(|result| {
+                    let index =
+                        self.artifact.records.iter().position(|dataset| {
+                            dataset.identity.id == result.dataset.identity.id
+                        })?;
+                    let breakdown = result.score_breakdown;
+                    Some([
+                        index as f64,
+                        result.score,
+                        breakdown.text_relevance,
+                        breakdown.task_compatibility,
+                        breakdown.modality_compatibility,
+                        breakdown.domain_target_match,
+                        breakdown.constraint_satisfaction,
+                        breakdown.evaluation_readiness,
+                        breakdown.quality_practical_fit,
+                        breakdown.total,
+                    ])
+                })
+                .collect()
+        })
+    }
 }
 
 fn query_text(query: &ResearchQuery) -> String {
