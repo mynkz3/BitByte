@@ -7,7 +7,7 @@ __pycache__/
 *.py[cod]
 .venv/
 target/
-catalog/
-catalog-fixtures/out/
+/catalog/
+/catalog-fixtures/out/
 catalog_builder/src/*.egg-info/
 *.log
