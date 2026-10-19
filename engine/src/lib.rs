@@ -1,6 +1,7 @@
 pub mod index;
 pub mod model;
 pub mod ranking;
+pub mod requirements;
 pub mod tokenizer;
 
 use wasm_bindgen::prelude::*;
@@ -33,5 +34,11 @@ impl SearchEngine {
     #[wasm_bindgen(js_name = engineVersion)]
     pub fn engine_version() -> String {
         "0.1.0".to_owned()
+    }
+
+    #[wasm_bindgen(js_name = extractRequirements)]
+    pub fn extract_requirements(text: &str) -> String {
+        serde_json::to_string(&requirements::extract_requirements(text))
+            .expect("requirement suggestions should serialize")
     }
 }
