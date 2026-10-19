@@ -1,0 +1,8 @@
+pyproject.toml
+src/bitbyte_catalog/__init__.py
+src/bitbyte_catalog.egg-info/PKG-INFO
+src/bitbyte_catalog.egg-info/SOURCES.txt
+src/bitbyte_catalog.egg-info/dependency_links.txt
+src/bitbyte_catalog.egg-info/requires.txt
+src/bitbyte_catalog.egg-info/top_level.txt
+tests/test_smoke.py
