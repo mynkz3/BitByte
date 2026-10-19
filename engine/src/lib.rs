@@ -1,3 +1,5 @@
+pub mod model;
+
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]

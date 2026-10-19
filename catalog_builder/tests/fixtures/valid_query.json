@@ -1,0 +1,48 @@
+{
+  "source_text": "Classify retinal images for diabetic retinopathy.",
+  "requirements": {
+    "modalities": {
+      "must_have": ["image"],
+      "preferred": [],
+      "excluded": []
+    },
+    "tasks": {
+      "must_have": ["classification"],
+      "preferred": [],
+      "excluded": []
+    },
+    "domains": {
+      "must_have": [],
+      "preferred": ["medical"],
+      "excluded": []
+    },
+    "targets": {
+      "must_have": [],
+      "preferred": ["retinopathy"],
+      "excluded": []
+    },
+    "languages": {
+      "must_have": [],
+      "preferred": [],
+      "excluded": []
+    },
+    "licenses": {
+      "must_have": ["permissive"],
+      "preferred": [],
+      "excluded": []
+    },
+    "required_splits": ["train", "test"],
+    "min_records": 500,
+    "max_records": null,
+    "only_verified": false
+  },
+  "priorities": {
+    "text_relevance": 0.3,
+    "task_compatibility": 0.2,
+    "modality_compatibility": 0.15,
+    "domain_target_match": 0.15,
+    "constraint_satisfaction": 0.1,
+    "evaluation_readiness": 0.05,
+    "quality_practical_fit": 0.05
+  }
+}

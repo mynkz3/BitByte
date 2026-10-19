@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bitbyte.app/schema/catalog-manifest.schema.json",
+  "title": "BitByte Catalog Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "catalog_version",
+    "schema_version",
+    "generated_at",
+    "source_versions",
+    "record_counts",
+    "stale_sources",
+    "validation_summary"
+  ],
+  "properties": {
+    "catalog_version": { "type": "string", "minLength": 1 },
+    "schema_version": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "source_versions": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "record_counts": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 },
+      "required": ["total"]
+    },
+    "stale_sources": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "validation_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["valid", "warnings", "errors"],
+      "properties": {
+        "valid": { "type": "boolean" },
+        "warnings": { "type": "integer", "minimum": 0 },
+        "errors": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

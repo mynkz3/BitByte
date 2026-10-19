@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bitbyte.app/schema/dataset.schema.json",
+  "title": "BitByte Dataset Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "identity",
+    "content",
+    "fit",
+    "practical",
+    "quality",
+    "evidence",
+    "provenance"
+  ],
+  "properties": {
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source", "source_id", "canonical_url", "alternate_urls"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 },
+        "source_id": { "type": "string", "minLength": 1 },
+        "canonical_url": { "type": "string", "format": "uri" },
+        "alternate_urls": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "summary", "search_text", "tags", "citation"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string" },
+        "search_text": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "citation": { "type": "string" }
+      }
+    },
+    "fit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "modalities",
+        "tasks",
+        "domains",
+        "targets",
+        "languages",
+        "geography",
+        "time_range",
+        "annotation_types",
+        "attributes"
+      ],
+      "properties": {
+        "modalities": { "$ref": "#/$defs/stringList" },
+        "tasks": { "$ref": "#/$defs/stringList" },
+        "domains": { "$ref": "#/$defs/stringList" },
+        "targets": { "$ref": "#/$defs/stringList" },
+        "languages": { "$ref": "#/$defs/stringList" },
+        "geography": { "$ref": "#/$defs/stringList" },
+        "time_range": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["start", "end"],
+          "properties": {
+            "start": { "type": ["string", "null"] },
+            "end": { "type": ["string", "null"] }
+          }
+        },
+        "annotation_types": { "$ref": "#/$defs/stringList" },
+        "attributes": { "type": "object" }
+      }
+    },
+    "practical": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["size", "splits", "license", "access_type"],
+      "properties": {
+        "size": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["bytes", "records", "features"],
+          "properties": {
+            "bytes": { "type": ["integer", "null"], "minimum": 0 },
+            "records": { "type": ["integer", "null"], "minimum": 0 },
+            "features": { "type": ["integer", "null"], "minimum": 0 }
+          }
+        },
+        "splits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["train", "validation", "test"],
+          "properties": {
+            "train": { "type": "boolean" },
+            "validation": { "type": "boolean" },
+            "test": { "type": "boolean" }
+          }
+        },
+        "license": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["spdx_id", "label", "url", "category"],
+          "properties": {
+            "spdx_id": { "type": ["string", "null"] },
+            "label": { "type": ["string", "null"] },
+            "url": { "type": ["string", "null"], "format": "uri" },
+            "category": {
+              "type": "string",
+              "enum": ["permissive", "copyleft", "research_only", "restricted", "unknown"]
+            }
+          }
+        },
+        "access_type": {
+          "type": "string",
+          "enum": ["public", "gated", "restricted", "unknown"]
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metadata_completeness",
+        "availability_status",
+        "warnings",
+        "last_verified_at"
+      ],
+      "properties": {
+        "metadata_completeness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "availability_status": {
+          "type": "string",
+          "enum": ["reachable", "restricted", "unavailable", "unknown"]
+        },
+        "warnings": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "last_verified_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapter_version", "extracted_at", "source_updated_at", "schema_version"],
+      "properties": {
+        "adapter_version": { "type": "string", "minLength": 1 },
+        "extracted_at": { "type": "string", "format": "date-time" },
+        "source_updated_at": { "type": ["string", "null"], "format": "date-time" },
+        "schema_version": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "stringList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_type", "confidence"],
+      "properties": {
+        "evidence_type": {
+          "type": "string",
+          "enum": [
+            "source_metadata",
+            "derived_metadata",
+            "verified_link",
+            "researcher_input",
+            "not_reported"
+          ]
+        },
+        "evidence_text": { "type": ["string", "null"] },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

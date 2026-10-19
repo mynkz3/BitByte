@@ -1,0 +1,92 @@
+{
+  "version": "0.1.0",
+  "modalities": [
+    "tabular",
+    "text",
+    "image",
+    "audio",
+    "video",
+    "time_series",
+    "graph",
+    "multimodal"
+  ],
+  "tasks": [
+    "classification",
+    "regression",
+    "detection",
+    "segmentation",
+    "generation",
+    "forecasting",
+    "clustering",
+    "ranking",
+    "recommendation",
+    "anomaly_detection",
+    "similarity_search",
+    "question_answering",
+    "speech_recognition"
+  ],
+  "domains": [
+    "agriculture",
+    "climate",
+    "education",
+    "finance",
+    "healthcare",
+    "medical",
+    "retail",
+    "robotics",
+    "science",
+    "security",
+    "social_science",
+    "transportation"
+  ],
+  "metrics": [
+    "accuracy",
+    "precision",
+    "recall",
+    "f1",
+    "auroc",
+    "rmse",
+    "mae",
+    "map",
+    "bleu",
+    "rouge",
+    "wer"
+  ],
+  "annotation_types": [
+    "class_labels",
+    "regression_targets",
+    "bounding_boxes",
+    "segmentation_masks",
+    "text_spans",
+    "image_labels",
+    "audio_transcripts",
+    "graph_labels"
+  ],
+  "aliases": {
+    "modalities": {
+      "tabular": ["structured", "csv", "spreadsheet", "table"],
+      "text": ["nlp", "language", "documents", "corpus"],
+      "image": ["visual", "photograph", "pictures"],
+      "audio": ["sound", "speech", "voice"],
+      "video": ["moving image", "clips"],
+      "time_series": ["temporal", "sequential", "forecasting data"],
+      "graph": ["network", "nodes and edges"],
+      "multimodal": ["multiple modalities", "cross-modal"]
+    },
+    "tasks": {
+      "classification": ["categorization", "classify", "label prediction"],
+      "regression": ["continuous prediction", "numeric prediction"],
+      "detection": ["object detection", "localization"],
+      "segmentation": ["pixel labeling", "semantic segmentation"],
+      "forecasting": ["future prediction", "time series prediction"],
+      "clustering": ["grouping", "unsupervised grouping"],
+      "speech_recognition": ["automatic speech recognition", "asr"]
+    },
+    "domains": {
+      "medical": ["clinical", "medicine", "healthcare", "disease"],
+      "climate": ["weather", "environment", "climate science"],
+      "finance": ["financial", "banking", "markets"],
+      "agriculture": ["farming", "crops", "agronomy"]
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bitbyte.app/schema/query.schema.json",
+  "title": "BitByte Research Query",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_text", "requirements", "priorities"],
+  "properties": {
+    "source_text": { "type": "string" },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "modalities",
+        "tasks",
+        "domains",
+        "targets",
+        "languages",
+        "licenses",
+        "required_splits",
+        "min_records",
+        "max_records",
+        "only_verified"
+      ],
+      "properties": {
+        "modalities": { "$ref": "#/$defs/matchGroup" },
+        "tasks": { "$ref": "#/$defs/matchGroup" },
+        "domains": { "$ref": "#/$defs/matchGroup" },
+        "targets": { "$ref": "#/$defs/matchGroup" },
+        "languages": { "$ref": "#/$defs/matchGroup" },
+        "licenses": { "$ref": "#/$defs/matchGroup" },
+        "required_splits": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["train", "validation", "test"] },
+          "uniqueItems": true
+        },
+        "min_records": { "type": ["integer", "null"], "minimum": 0 },
+        "max_records": { "type": ["integer", "null"], "minimum": 0 },
+        "only_verified": { "type": "boolean" }
+      }
+    },
+    "priorities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text_relevance",
+        "task_compatibility",
+        "modality_compatibility",
+        "domain_target_match",
+        "constraint_satisfaction",
+        "evaluation_readiness",
+        "quality_practical_fit"
+      ],
+      "properties": {
+        "text_relevance": { "type": "number", "minimum": 0, "maximum": 1 },
+        "task_compatibility": { "type": "number", "minimum": 0, "maximum": 1 },
+        "modality_compatibility": { "type": "number", "minimum": 0, "maximum": 1 },
+        "domain_target_match": { "type": "number", "minimum": 0, "maximum": 1 },
+        "constraint_satisfaction": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evaluation_readiness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "quality_practical_fit": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "matchGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["must_have", "preferred", "excluded"],
+      "properties": {
+        "must_have": { "$ref": "#/$defs/stringList" },
+        "preferred": { "$ref": "#/$defs/stringList" },
+        "excluded": { "$ref": "#/$defs/stringList" }
+      }
+    },
+    "stringList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    }
+  }
+}
