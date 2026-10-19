@@ -1,0 +1,14 @@
+[
+  {
+    "id": "bitbyte/demo-image",
+    "description": "A labeled retinal image dataset for classification.",
+    "tags": ["image-classification", "medical", "en"],
+    "lastModified": "2026-10-18T12:00:00.000Z",
+    "cardData": {
+      "pretty_name": "Demo Retinal Images",
+      "license": "mit",
+      "task_categories": ["image-classification"],
+      "language": ["en"]
+    }
+  }
+]

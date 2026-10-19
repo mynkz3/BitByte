@@ -1,0 +1,15 @@
+{
+  "data": [
+    {
+      "did": 1,
+      "name": "demo-iris",
+      "description": "A small tabular classification dataset.",
+      "version": 1,
+      "status": "active",
+      "NumberOfInstances": 150,
+      "NumberOfFeatures": 4,
+      "default_target_attribute": "class",
+      "licence": "MIT"
+    }
+  ]
+}

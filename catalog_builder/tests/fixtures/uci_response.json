@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Demo UCI Classification",
+      "description": "A classic tabular classification dataset.",
+      "tasks": ["classification"],
+      "num_instances": 120,
+      "num_features": 5,
+      "license": "CC BY 4.0",
+      "url": "https://archive.ics.uci.edu/dataset/1/demo"
+    }
+  ]
+}

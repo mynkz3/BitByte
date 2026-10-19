@@ -74,7 +74,13 @@
       "multimodal": ["multiple modalities", "cross-modal"]
     },
     "tasks": {
-      "classification": ["categorization", "classify", "label prediction"],
+      "classification": [
+        "categorization",
+        "classify",
+        "label prediction",
+        "image-classification",
+        "text-classification"
+      ],
       "regression": ["continuous prediction", "numeric prediction"],
       "detection": ["object detection", "localization"],
       "segmentation": ["pixel labeling", "semantic segmentation"],
