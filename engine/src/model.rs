@@ -3,6 +3,13 @@ use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct CatalogArtifact {
+    pub catalog_version: String,
+    pub schema_version: String,
+    pub records: Vec<DatasetRecord>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct DatasetRecord {
     pub identity: DatasetIdentity,
     pub content: DatasetContent,

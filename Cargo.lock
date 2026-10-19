@@ -14,6 +14,10 @@ dependencies = [
 [[package]]
 name = "bitbyte-indexer"
 version = "0.1.0"
+dependencies = [
+ "bitbyte-engine",
+ "serde_json",
+]
 
 [[package]]
 name = "bumpalo"
