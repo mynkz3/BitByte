@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 use serde::{Deserialize, Serialize};
 
@@ -18,6 +18,15 @@ pub struct DatasetRecord {
     pub quality: DatasetQuality,
     pub evidence: HashMap<String, Evidence>,
     pub provenance: DatasetProvenance,
+}
+
+impl DatasetRecord {
+    pub fn validate(&self) -> Result<(), String> {
+        validate_string_list("identity.aliases", &self.identity.aliases)?;
+        validate_string_list("fit.subjects", &self.fit.subjects)?;
+        validate_string_list("fit.data_objects", &self.fit.data_objects)?;
+        Ok(())
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -121,6 +130,26 @@ pub struct ResearchQuery {
     pub context: QueryContext,
 }
 
+impl ResearchQuery {
+    pub fn validate(&self) -> Result<(), String> {
+        self.requirements
+            .subjects
+            .validate("requirements.subjects")?;
+        self.requirements
+            .data_objects
+            .validate("requirements.data_objects")?;
+        let mut named_datasets = HashSet::with_capacity(self.requirements.named_datasets.len());
+        for (index, named_dataset) in self.requirements.named_datasets.iter().enumerate() {
+            named_dataset.validate(&format!("requirements.named_datasets[{index}]"))?;
+            if !named_datasets.insert((&named_dataset.name, &named_dataset.role)) {
+                return Err("requirements.named_datasets values must be unique".to_owned());
+            }
+        }
+        self.context.validate("context")?;
+        Ok(())
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct QueryRequirements {
     pub modalities: MatchGroup,
@@ -138,7 +167,7 @@ pub struct QueryRequirements {
     pub only_verified: bool,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
 #[serde(rename_all = "snake_case")]
 pub enum NamedDatasetRole {
     Anchor,
@@ -152,6 +181,15 @@ pub struct NamedDatasetReference {
     pub role: NamedDatasetRole,
 }
 
+impl NamedDatasetReference {
+    fn validate(&self, field: &str) -> Result<(), String> {
+        if self.name.is_empty() {
+            return Err(format!("{field}.name must be non-empty"));
+        }
+        Ok(())
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct QueryContext {
     pub goals: Vec<String>,
@@ -160,11 +198,43 @@ pub struct QueryContext {
     pub metrics: Vec<String>,
 }
 
+impl QueryContext {
+    fn validate(&self, field: &str) -> Result<(), String> {
+        validate_string_list(&format!("{field}.goals"), &self.goals)?;
+        validate_string_list(&format!("{field}.frameworks"), &self.frameworks)?;
+        validate_string_list(&format!("{field}.models"), &self.models)?;
+        validate_string_list(&format!("{field}.metrics"), &self.metrics)?;
+        Ok(())
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct MatchGroup {
     pub must_have: Vec<String>,
     pub preferred: Vec<String>,
     pub excluded: Vec<String>,
+}
+
+impl MatchGroup {
+    fn validate(&self, field: &str) -> Result<(), String> {
+        validate_string_list(&format!("{field}.must_have"), &self.must_have)?;
+        validate_string_list(&format!("{field}.preferred"), &self.preferred)?;
+        validate_string_list(&format!("{field}.excluded"), &self.excluded)?;
+        Ok(())
+    }
+}
+
+fn validate_string_list(field: &str, values: &[String]) -> Result<(), String> {
+    let mut seen = HashSet::with_capacity(values.len());
+    for value in values {
+        if value.is_empty() {
+            return Err(format!("{field} values must be non-empty"));
+        }
+        if !seen.insert(value) {
+            return Err(format!("{field} values must be unique"));
+        }
+    }
+    Ok(())
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]

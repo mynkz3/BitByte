@@ -100,3 +100,51 @@ def test_query_model_rejects_unknown_named_dataset_role() -> None:
 
     with pytest.raises(ValidationError):
         ResearchQuery.model_validate(payload)
+
+
+def test_dataset_model_rejects_duplicate_identity_aliases() -> None:
+    payload = read_fixture("valid_dataset.json")
+    payload["identity"]["aliases"] = ["ESOL", "ESOL"]
+
+    with pytest.raises(ValidationError):
+        DatasetRecord.model_validate(payload)
+
+
+def test_dataset_model_rejects_empty_research_fit_values() -> None:
+    payload = read_fixture("valid_dataset.json")
+    payload["fit"]["subjects"] = [""]
+
+    with pytest.raises(ValidationError):
+        DatasetRecord.model_validate(payload)
+
+
+def test_query_model_rejects_duplicate_context_values() -> None:
+    payload = read_fixture("valid_query.json")
+    payload["context"] = {
+        "goals": [],
+        "frameworks": [],
+        "models": [],
+        "metrics": ["mae", "mae"],
+    }
+
+    with pytest.raises(ValidationError):
+        ResearchQuery.model_validate(payload)
+
+
+def test_query_model_rejects_empty_subject_match_values() -> None:
+    payload = read_fixture("valid_query.json")
+    payload["requirements"]["subjects"]["must_have"] = [""]
+
+    with pytest.raises(ValidationError):
+        ResearchQuery.model_validate(payload)
+
+
+def test_query_model_rejects_duplicate_named_dataset_references() -> None:
+    payload = read_fixture("valid_query.json")
+    payload["requirements"]["named_datasets"] = [
+        {"name": "ESOL", "role": "anchor"},
+        {"name": "ESOL", "role": "anchor"},
+    ]
+
+    with pytest.raises(ValidationError):
+        ResearchQuery.model_validate(payload)

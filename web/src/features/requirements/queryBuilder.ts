@@ -32,29 +32,24 @@ export function buildResearchQuery(
     only_verified: false,
   };
 
-  const metrics: string[] = [];
   suggestions.forEach((suggestion) => {
     const field = FIELD_TO_REQUIREMENT[suggestion.field];
-    if (!field) {
-      if (suggestion.field === "evaluation_metric") metrics.push(suggestion.value);
-      return;
-    }
+    if (!field) return;
     const group = requirements[field];
     if (!isMatchGroup(group)) return;
     const bucket = suggestion.bucket === "must_have" ? "must_have" : "preferred";
     group[bucket].push(suggestion.value);
   });
 
-  const metricContext = metrics.length > 0 ? ` Evaluation metrics: ${metrics.join(", ")}.` : "";
   return {
-    source_text: `${sourceText.trim()}${metricContext}`.trim(),
+    source_text: sourceText.trim(),
     requirements,
     priorities,
     context: {
       goals: [],
       frameworks: [],
       models: [],
-      metrics,
+      metrics: [],
     },
   };
 }

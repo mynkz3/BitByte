@@ -3,7 +3,15 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, field_validator
+
+
+def _validate_non_empty_unique(values: list[str], field_name: str) -> list[str]:
+    if any(value == "" for value in values):
+        raise ValueError(f"{field_name} values must be non-empty")
+    if len(set(values)) != len(values):
+        raise ValueError(f"{field_name} values must be unique")
+    return values
 
 
 class StrictModel(BaseModel):
@@ -17,6 +25,11 @@ class DatasetIdentity(StrictModel):
     canonical_url: str
     alternate_urls: list[str]
     aliases: list[str]
+
+    @field_validator("aliases")
+    @classmethod
+    def aliases_are_non_empty_and_unique(cls, values: list[str]) -> list[str]:
+        return _validate_non_empty_unique(values, "aliases")
 
 
 class DatasetContent(StrictModel):
@@ -44,6 +57,13 @@ class DatasetFit(StrictModel):
     time_range: TimeRange
     annotation_types: list[str]
     attributes: dict[str, Any]
+
+    @field_validator("subjects", "data_objects")
+    @classmethod
+    def research_fit_values_are_non_empty_and_unique(
+        cls, values: list[str], info: ValidationInfo
+    ) -> list[str]:
+        return _validate_non_empty_unique(values, info.field_name)
 
 
 class DatasetSize(StrictModel):
@@ -119,6 +139,13 @@ class MatchGroup(StrictModel):
     preferred: list[str]
     excluded: list[str]
 
+    @field_validator("must_have", "preferred", "excluded")
+    @classmethod
+    def values_are_non_empty_and_unique(
+        cls, values: list[str], info: ValidationInfo
+    ) -> list[str]:
+        return _validate_non_empty_unique(values, info.field_name)
+
 
 class NamedDatasetReference(StrictModel):
     name: str = Field(min_length=1)
@@ -130,6 +157,13 @@ class QueryContext(StrictModel):
     frameworks: list[str]
     models: list[str]
     metrics: list[str]
+
+    @field_validator("goals", "frameworks", "models", "metrics")
+    @classmethod
+    def context_values_are_non_empty_and_unique(
+        cls, values: list[str], info: ValidationInfo
+    ) -> list[str]:
+        return _validate_non_empty_unique(values, info.field_name)
 
 
 class QueryRequirements(StrictModel):
@@ -146,6 +180,16 @@ class QueryRequirements(StrictModel):
     min_records: int | None = Field(default=None, ge=0)
     max_records: int | None = Field(default=None, ge=0)
     only_verified: bool
+
+    @field_validator("named_datasets")
+    @classmethod
+    def named_datasets_are_unique(
+        cls, values: list[NamedDatasetReference]
+    ) -> list[NamedDatasetReference]:
+        keys = [(value.name, value.role) for value in values]
+        if len(set(keys)) != len(keys):
+            raise ValueError("named_datasets values must be unique")
+        return values
 
 
 class QueryPriorities(StrictModel):

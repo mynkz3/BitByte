@@ -27,6 +27,27 @@ describe("buildResearchQuery", () => {
           confidence: 0.95,
           bucket: "nice_to_have",
         },
+        {
+          field: "named_dataset",
+          value: "ESOL",
+          evidence_text: "ESOL",
+          confidence: 0.95,
+          bucket: "preferred",
+        },
+        {
+          field: "framework",
+          value: "gnn",
+          evidence_text: "GNN",
+          confidence: 0.95,
+          bucket: "preferred",
+        },
+        {
+          field: "model",
+          value: "message passing neural network",
+          evidence_text: "message passing neural network",
+          confidence: 0.95,
+          bucket: "preferred",
+        },
       ],
       {
         text_relevance: 0.3,
@@ -41,6 +62,23 @@ describe("buildResearchQuery", () => {
 
     expect(query.requirements.modalities.must_have).toEqual(["image"]);
     expect(query.requirements.tasks.preferred).toEqual(["classification"]);
-    expect(query.source_text).toContain("Evaluation metrics: f1");
+    expect(query.source_text).toBe("Find retinal datasets");
+    expect(query.requirements.subjects).toEqual({
+      must_have: [],
+      preferred: [],
+      excluded: [],
+    });
+    expect(query.requirements.data_objects).toEqual({
+      must_have: [],
+      preferred: [],
+      excluded: [],
+    });
+    expect(query.requirements.named_datasets).toEqual([]);
+    expect(query.context).toEqual({
+      goals: [],
+      frameworks: [],
+      models: [],
+      metrics: [],
+    });
   });
 });

@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
 use bitbyte_engine::model::{
-    CatalogArtifact, DatasetRecord, DatasetSize, DatasetSplits, MatchGroup, QueryPriorities,
-    ResearchQuery,
+    CatalogArtifact, DatasetRecord, DatasetSize, DatasetSplits, MatchGroup, NamedDatasetReference,
+    NamedDatasetRole, QueryPriorities, ResearchQuery,
 };
 use bitbyte_engine::ranking::RankingEngine;
 
@@ -131,4 +131,52 @@ fn json_search_bridge_serializes_ranked_results() {
         results[0]["dataset"]["identity"]["id"],
         "huggingface:bitbyte/demo-image"
     );
+}
+
+#[test]
+fn rejects_invalid_dataset_aliases_at_catalog_boundary() {
+    let mut dataset = dataset_fixture();
+    dataset.identity.aliases = vec!["".to_owned()];
+
+    let error = RankingEngine::from_catalog(CatalogArtifact {
+        catalog_version: "test".to_owned(),
+        schema_version: "0.2.0".to_owned(),
+        records: vec![dataset],
+    })
+    .expect_err("invalid aliases should be rejected");
+
+    assert!(error.contains("identity.aliases"));
+}
+
+#[test]
+fn rejects_invalid_query_context_at_search_boundary() {
+    let mut query = query_fixture();
+    query.context.metrics = vec!["".to_owned()];
+
+    let error = engine()
+        .search(&query, 10)
+        .expect_err("invalid context values should be rejected");
+
+    assert!(error.contains("context.metrics"));
+}
+
+#[test]
+fn rejects_duplicate_named_datasets_at_search_boundary() {
+    let mut query = query_fixture();
+    query.requirements.named_datasets = vec![
+        NamedDatasetReference {
+            name: "ESOL".to_owned(),
+            role: NamedDatasetRole::Anchor,
+        },
+        NamedDatasetReference {
+            name: "ESOL".to_owned(),
+            role: NamedDatasetRole::Anchor,
+        },
+    ];
+
+    let error = engine()
+        .search(&query, 10)
+        .expect_err("duplicate named datasets should be rejected");
+
+    assert!(error.contains("requirements.named_datasets"));
 }

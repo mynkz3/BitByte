@@ -48,11 +48,19 @@ impl RankingEngine {
             return Err("catalog must contain at least one dataset".to_owned());
         }
 
+        for (index, record) in artifact.records.iter().enumerate() {
+            record
+                .validate()
+                .map_err(|error| format!("invalid dataset at index {index}: {error}"))?;
+        }
+
         let index = TextIndex::build(&artifact);
         Ok(Self { artifact, index })
     }
 
     pub fn search(&self, query: &ResearchQuery, limit: usize) -> Result<Vec<RankedResult>, String> {
+        query.validate()?;
+
         if limit == 0 {
             return Ok(Vec::new());
         }
