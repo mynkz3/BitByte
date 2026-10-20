@@ -44,7 +44,10 @@
     "chemistry",
     "molecular_property_prediction",
     "animals",
-    "cats"
+    "cats",
+    "medical",
+    "botany",
+    "plants"
   ],
   "data_objects": [
     "molecule",
@@ -52,7 +55,8 @@
     "image",
     "cat",
     "document",
-    "patient_record"
+    "patient_record",
+    "plant_measurement"
   ],
   "metrics": [
     "accuracy",
@@ -117,7 +121,10 @@
         "molecule property prediction"
       ],
       "animals": ["animal", "animal science"],
-      "cats": ["cat", "felines", "feline"]
+      "cats": ["cat", "felines", "feline"],
+      "medical": ["medicine", "clinical", "healthcare"],
+      "botany": ["botanical", "plant science"],
+      "plants": ["plant", "flowers", "flower"]
     },
     "data_objects": {
       "molecule": ["molecules", "chemical compound", "compound"],
@@ -125,7 +132,8 @@
       "image": ["images", "photograph", "photographs"],
       "cat": ["cats", "feline", "felines"],
       "document": ["documents", "paper"],
-      "patient_record": ["patient records", "clinical record"]
+      "patient_record": ["patient records", "clinical record"],
+      "plant_measurement": ["plant measurements", "flower measurements"]
     }
   }
 }

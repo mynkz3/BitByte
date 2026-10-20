@@ -152,5 +152,33 @@
     "targets": ["quantum_property"],
     "evidence_level": "curated_reference",
     "notes": "Quantum chemistry molecular property regression benchmark."
+  },
+  {
+    "canonical_name": "Breast Cancer Wisconsin (Diagnostic)",
+    "aliases": ["Breast Cancer Wisconsin", "WDBC", "Wisconsin Diagnostic Breast Cancer"],
+    "source": "uci",
+    "source_ids": ["17", "breast-cancer-wisconsin-diagnostic"],
+    "source_urls": ["https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic"],
+    "subjects": ["medical"],
+    "data_objects": ["patient_record"],
+    "modalities": ["tabular"],
+    "tasks": ["classification"],
+    "targets": ["diagnosis"],
+    "evidence_level": "curated_reference",
+    "notes": "UCI diagnostic breast-cancer classification benchmark."
+  },
+  {
+    "canonical_name": "Iris",
+    "aliases": ["Iris flower", "Iris species", "Fisher Iris"],
+    "source": "uci",
+    "source_ids": ["53", "iris"],
+    "source_urls": ["https://archive.ics.uci.edu/dataset/53/iris"],
+    "subjects": ["botany"],
+    "data_objects": ["plant_measurement"],
+    "modalities": ["tabular"],
+    "tasks": ["classification"],
+    "targets": ["species"],
+    "evidence_level": "curated_reference",
+    "notes": "Fisher Iris flower-measurement classification benchmark."
   }
 ]

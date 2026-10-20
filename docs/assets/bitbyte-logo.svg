@@ -1,0 +1,14 @@
+<svg width="480" height="160" viewBox="0 0 480 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">BitByte logo</title>
+  <desc id="desc">A violet rounded square containing a B beside the BitByte wordmark.</desc>
+  <defs>
+    <linearGradient id="mark" x1="20" y1="16" x2="132" y2="144" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#4338CA"/>
+    </linearGradient>
+  </defs>
+  <rect x="16" y="16" width="128" height="128" rx="36" fill="url(#mark)"/>
+  <path d="M55 45H91C108.673 45 123 59.327 123 77C123 94.673 108.673 109 91 109H55V45Z" fill="white" fill-opacity="0.98"/>
+  <path d="M55 45V109H83C91.2843 109 98 102.284 98 94C98 85.7157 91.2843 79 83 79H55M55 79H83C89.6274 79 95 73.6274 95 67C95 60.3726 89.6274 55 83 55H55" stroke="#4F46E5" stroke-width="8" stroke-linejoin="round"/>
+  <text x="176" y="101" fill="#172033" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="64" font-weight="800" letter-spacing="-3">BitByte</text>
+</svg>

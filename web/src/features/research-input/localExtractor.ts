@@ -33,6 +33,16 @@ const DATASET_RULES: DatasetRule[] = [
   { canonical: "QM7", aliases: ["QM7", "QM-7"] },
   { canonical: "QM8", aliases: ["QM8", "QM-8"] },
   { canonical: "QM9", aliases: ["QM9", "QM-9"] },
+  {
+    canonical: "Breast Cancer Wisconsin (Diagnostic)",
+    aliases: [
+      "Breast Cancer Wisconsin (Diagnostic)",
+      "Breast Cancer Wisconsin",
+      "WDBC",
+      "Wisconsin Diagnostic Breast Cancer",
+    ],
+  },
+  { canonical: "Iris", aliases: ["Iris", "Iris flower", "Iris species", "Fisher Iris"] },
 ];
 
 const RULES: Rule[] = ([
@@ -42,6 +52,7 @@ const RULES: Rule[] = ([
   ["modality", "video", ["videos", "video"], 0.95],
   ["modality", "time_series", ["time series", "temporal", "forecasting data"], 0.95],
   ["modality", "graph", ["nodes and edges", "graph", "network"], 0.9],
+  ["modality", "tabular", ["tabular", "table", "tables", "csv", "spreadsheet"], 0.95],
   ["task", "classification", ["classification", "classify", "categorization", "categorisation"], 0.95],
   ["task", "regression", ["regression", "continuous prediction", "numeric prediction"], 0.95],
   ["task", "detection", ["object detection", "detection", "localization", "localisation"], 0.95],
@@ -57,11 +68,17 @@ const RULES: Rule[] = ([
   ["subject", "molecular_property_prediction", ["molecular property prediction", "molecule property prediction"], 0.95],
   ["subject", "animals", ["animals", "animal"], 0.82],
   ["subject", "cats", ["cats", "cat", "felines", "feline"], 0.95],
+  ["subject", "medical", ["medical", "medicine", "clinical", "healthcare"], 0.92],
+  ["subject", "plants", ["plants", "plant", "botany", "flowers", "flower"], 0.88],
   ["data_object", "molecule", ["molecules", "molecule", "chemical compound", "compounds", "compound"], 0.92],
   ["data_object", "molecular_graph", ["molecular graphs", "molecular graph"], 0.95],
   ["data_object", "image", ["images", "image"], 0.84],
   ["data_object", "cat", ["cats", "cat"], 0.9],
+  ["data_object", "patient_record", ["patient records", "patient record", "clinical record"], 0.92],
+  ["data_object", "plant_measurement", ["plant measurements", "flower measurements"], 0.92],
   ["target", "molecular_property", ["molecular property", "molecule property"], 0.76],
+  ["target", "diagnosis", ["diagnosis", "diagnostic outcome"], 0.92],
+  ["target", "species", ["species", "flower species"], 0.92],
   ["framework", "gnn", ["gnn", "graph neural network", "graph neural networks"], 0.95],
   ["model", "message_passing_neural_network", ["message passing neural network", "message-passing neural network"], 0.95],
   ["model", "transformer", ["transformer", "transformers"], 0.95],

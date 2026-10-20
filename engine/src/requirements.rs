@@ -87,6 +87,19 @@ const DATASET_RULES: &[DatasetRule] = &[
         canonical: "QM9",
         aliases: &["QM9", "QM-9"],
     },
+    DatasetRule {
+        canonical: "Breast Cancer Wisconsin (Diagnostic)",
+        aliases: &[
+            "Breast Cancer Wisconsin (Diagnostic)",
+            "Breast Cancer Wisconsin",
+            "WDBC",
+            "Wisconsin Diagnostic Breast Cancer",
+        ],
+    },
+    DatasetRule {
+        canonical: "Iris",
+        aliases: &["Iris", "Iris flower", "Iris species", "Fisher Iris"],
+    },
 ];
 
 const RULES: &[Rule] = &[
@@ -125,6 +138,12 @@ const RULES: &[Rule] = &[
         value: "graph",
         aliases: &["nodes and edges", "graph", "network"],
         confidence: 0.9,
+    },
+    Rule {
+        field: "modality",
+        value: "tabular",
+        aliases: &["tabular", "table", "tables", "csv", "spreadsheet"],
+        confidence: 0.95,
     },
     Rule {
         field: "task",
@@ -235,6 +254,18 @@ const RULES: &[Rule] = &[
         confidence: 0.95,
     },
     Rule {
+        field: "subject",
+        value: "medical",
+        aliases: &["medical", "medicine", "clinical", "healthcare"],
+        confidence: 0.92,
+    },
+    Rule {
+        field: "subject",
+        value: "plants",
+        aliases: &["plants", "plant", "botany", "flowers", "flower"],
+        confidence: 0.88,
+    },
+    Rule {
         field: "data_object",
         value: "molecule",
         aliases: &[
@@ -265,10 +296,34 @@ const RULES: &[Rule] = &[
         confidence: 0.9,
     },
     Rule {
+        field: "data_object",
+        value: "patient_record",
+        aliases: &["patient records", "patient record", "clinical record"],
+        confidence: 0.92,
+    },
+    Rule {
+        field: "data_object",
+        value: "plant_measurement",
+        aliases: &["plant measurements", "flower measurements"],
+        confidence: 0.92,
+    },
+    Rule {
         field: "target",
         value: "molecular_property",
         aliases: &["molecular property", "molecule property"],
         confidence: 0.76,
+    },
+    Rule {
+        field: "target",
+        value: "diagnosis",
+        aliases: &["diagnosis", "diagnostic outcome"],
+        confidence: 0.92,
+    },
+    Rule {
+        field: "target",
+        value: "species",
+        aliases: &["species", "flower species"],
+        confidence: 0.92,
     },
     Rule {
         field: "framework",

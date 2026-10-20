@@ -85,15 +85,20 @@
         "last_verified_at": null
       },
       "evidence": {
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "ESOL",
+          "confidence": 1.0
+        },
         "registry.source_urls": {
           "evidence_type": "source_metadata",
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
           "confidence": 0.95
-        },
-        "fit.data_objects": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "molecule molecular_graph",
-          "confidence": 0.8
         },
         "identity.aliases": {
           "evidence_type": "source_metadata",
@@ -105,19 +110,14 @@
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
           "confidence": 1.0
         },
-        "registry.identity": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "ESOL",
-          "confidence": 1.0
-        },
         "registry.evidence_level": {
           "evidence_type": "derived_metadata",
           "evidence_text": "curated_reference",
           "confidence": 0.9
         },
-        "fit.modalities": {
+        "fit.data_objects": {
           "evidence_type": "source_metadata",
-          "evidence_text": "graph",
+          "evidence_text": "molecule molecular_graph",
           "confidence": 0.8
         },
         "fit.subjects": {
@@ -128,7 +128,7 @@
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
@@ -215,15 +215,15 @@
         "last_verified_at": null
       },
       "evidence": {
-        "fit.modalities": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "graph",
-          "confidence": 0.8
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
         },
-        "fit.subjects": {
+        "registry.identity": {
           "evidence_type": "source_metadata",
-          "evidence_text": "chemistry molecular_property_prediction",
-          "confidence": 0.8
+          "evidence_text": "BACE",
+          "confidence": 1.0
         },
         "fit.data_objects": {
           "evidence_type": "source_metadata",
@@ -235,30 +235,30 @@
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
           "confidence": 1.0
         },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
         "identity.aliases": {
           "evidence_type": "source_metadata",
           "evidence_text": "BACE; bace classification; bace",
           "confidence": 0.8
-        },
-        "registry.evidence_level": {
-          "evidence_type": "derived_metadata",
-          "evidence_text": "curated_reference",
-          "confidence": 0.9
         },
         "registry.source_urls": {
           "evidence_type": "source_metadata",
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
           "confidence": 0.95
         },
-        "registry.identity": {
+        "fit.modalities": {
           "evidence_type": "source_metadata",
-          "evidence_text": "BACE",
-          "confidence": 1.0
+          "evidence_text": "graph",
+          "confidence": 0.8
         }
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
@@ -345,14 +345,29 @@
         "last_verified_at": null
       },
       "evidence": {
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Lipophilicity",
+          "confidence": 1.0
+        },
         "identity.aliases": {
           "evidence_type": "source_metadata",
           "evidence_text": "Lipophilicity; delaney lipophilicity; lipophilicity",
           "confidence": 0.8
         },
-        "fit.modalities": {
+        "fit.data_objects": {
           "evidence_type": "source_metadata",
-          "evidence_text": "graph",
+          "evidence_text": "molecule molecular_graph",
           "confidence": 0.8
         },
         "identity.canonical_url": {
@@ -360,35 +375,20 @@
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
           "confidence": 1.0
         },
-        "registry.evidence_level": {
-          "evidence_type": "derived_metadata",
-          "evidence_text": "curated_reference",
-          "confidence": 0.9
-        },
-        "registry.identity": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "Lipophilicity",
-          "confidence": 1.0
-        },
         "fit.subjects": {
           "evidence_type": "source_metadata",
           "evidence_text": "chemistry molecular_property_prediction",
           "confidence": 0.8
         },
-        "registry.source_urls": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
-          "confidence": 0.95
-        },
-        "fit.data_objects": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "molecule molecular_graph",
-          "confidence": 0.8
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
         }
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
@@ -475,39 +475,39 @@
         "last_verified_at": null
       },
       "evidence": {
-        "registry.source_urls": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
-          "confidence": 0.95
-        },
-        "identity.canonical_url": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
-          "confidence": 1.0
-        },
         "fit.modalities": {
           "evidence_type": "source_metadata",
           "evidence_text": "graph",
           "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "BBBP; blood-brain barrier penetration; bbbp",
+          "confidence": 0.8
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
         },
         "registry.identity": {
           "evidence_type": "source_metadata",
           "evidence_text": "BBBP",
           "confidence": 1.0
         },
-        "fit.subjects": {
+        "identity.canonical_url": {
           "evidence_type": "source_metadata",
-          "evidence_text": "chemistry molecular_property_prediction",
-          "confidence": 0.8
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
         },
         "fit.data_objects": {
           "evidence_type": "source_metadata",
           "evidence_text": "molecule molecular_graph",
           "confidence": 0.8
         },
-        "identity.aliases": {
+        "fit.subjects": {
           "evidence_type": "source_metadata",
-          "evidence_text": "BBBP; blood-brain barrier penetration; bbbp",
+          "evidence_text": "chemistry molecular_property_prediction",
           "confidence": 0.8
         },
         "registry.evidence_level": {
@@ -518,7 +518,7 @@
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
@@ -605,19 +605,9 @@
         "last_verified_at": null
       },
       "evidence": {
-        "fit.modalities": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "graph",
-          "confidence": 0.8
-        },
         "identity.aliases": {
           "evidence_type": "source_metadata",
           "evidence_text": "Tox21; Tox-21; tox21",
-          "confidence": 0.8
-        },
-        "fit.data_objects": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "molecule molecular_graph",
           "confidence": 0.8
         },
         "registry.source_urls": {
@@ -630,10 +620,20 @@
           "evidence_text": "Tox21",
           "confidence": 1.0
         },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
         "identity.canonical_url": {
           "evidence_type": "source_metadata",
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
           "confidence": 1.0
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
         },
         "registry.evidence_level": {
           "evidence_type": "derived_metadata",
@@ -648,7 +648,7 @@
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
@@ -736,10 +736,25 @@
         "last_verified_at": null
       },
       "evidence": {
-        "identity.aliases": {
+        "fit.modalities": {
           "evidence_type": "source_metadata",
-          "evidence_text": "ClinTox; Clin-Tox; clinical toxicity; clintox",
+          "evidence_text": "graph",
           "confidence": 0.8
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
         },
         "fit.data_objects": {
           "evidence_type": "source_metadata",
@@ -751,35 +766,20 @@
           "evidence_text": "ClinTox",
           "confidence": 1.0
         },
-        "identity.canonical_url": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
-          "confidence": 1.0
-        },
-        "registry.source_urls": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
-          "confidence": 0.95
-        },
-        "fit.modalities": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "graph",
-          "confidence": 0.8
-        },
         "fit.subjects": {
           "evidence_type": "source_metadata",
           "evidence_text": "chemistry molecular_property_prediction",
           "confidence": 0.8
         },
-        "registry.evidence_level": {
-          "evidence_type": "derived_metadata",
-          "evidence_text": "curated_reference",
-          "confidence": 0.9
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "ClinTox; Clin-Tox; clinical toxicity; clintox",
+          "confidence": 0.8
         }
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
@@ -866,34 +866,24 @@
         "last_verified_at": null
       },
       "evidence": {
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
         "registry.source_urls": {
           "evidence_type": "source_metadata",
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
           "confidence": 0.95
         },
-        "fit.modalities": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "graph",
-          "confidence": 0.8
-        },
         "identity.aliases": {
           "evidence_type": "source_metadata",
           "evidence_text": "HIV; HIV inhibition; hiv",
-          "confidence": 0.8
-        },
-        "identity.canonical_url": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
-          "confidence": 1.0
-        },
-        "fit.subjects": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "chemistry molecular_property_prediction",
-          "confidence": 0.8
-        },
-        "fit.data_objects": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "molecule molecular_graph",
           "confidence": 0.8
         },
         "registry.identity": {
@@ -901,15 +891,25 @@
           "evidence_text": "HIV",
           "confidence": 1.0
         },
-        "registry.evidence_level": {
-          "evidence_type": "derived_metadata",
-          "evidence_text": "curated_reference",
-          "confidence": 0.9
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
         }
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
@@ -996,24 +996,24 @@
         "last_verified_at": null
       },
       "evidence": {
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
         "identity.canonical_url": {
           "evidence_type": "source_metadata",
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
           "confidence": 1.0
         },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
         "fit.subjects": {
           "evidence_type": "source_metadata",
           "evidence_text": "chemistry molecular_property_prediction",
-          "confidence": 0.8
-        },
-        "registry.identity": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "SIDER",
-          "confidence": 1.0
-        },
-        "fit.data_objects": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "molecule molecular_graph",
           "confidence": 0.8
         },
         "identity.aliases": {
@@ -1031,15 +1031,15 @@
           "evidence_text": "curated_reference",
           "confidence": 0.9
         },
-        "fit.modalities": {
+        "registry.identity": {
           "evidence_type": "source_metadata",
-          "evidence_text": "graph",
-          "confidence": 0.8
+          "evidence_text": "SIDER",
+          "confidence": 1.0
         }
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
@@ -1126,34 +1126,29 @@
         "last_verified_at": null
       },
       "evidence": {
-        "registry.identity": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "QM7",
-          "confidence": 1.0
-        },
-        "fit.modalities": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "graph",
-          "confidence": 0.8
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
         },
         "fit.subjects": {
           "evidence_type": "source_metadata",
           "evidence_text": "chemistry molecular_property_prediction",
           "confidence": 0.8
         },
-        "registry.source_urls": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
-          "confidence": 0.95
-        },
-        "registry.evidence_level": {
-          "evidence_type": "derived_metadata",
-          "evidence_text": "curated_reference",
-          "confidence": 0.9
-        },
         "identity.aliases": {
           "evidence_type": "source_metadata",
           "evidence_text": "QM7; QM-7; qm7",
+          "confidence": 0.8
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
           "confidence": 0.8
         },
         "identity.canonical_url": {
@@ -1161,15 +1156,20 @@
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
           "confidence": 1.0
         },
-        "fit.data_objects": {
+        "registry.source_urls": {
           "evidence_type": "source_metadata",
-          "evidence_text": "molecule molecular_graph",
-          "confidence": 0.8
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "QM7",
+          "confidence": 1.0
         }
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
@@ -1256,50 +1256,50 @@
         "last_verified_at": null
       },
       "evidence": {
-        "fit.subjects": {
+        "registry.identity": {
           "evidence_type": "source_metadata",
-          "evidence_text": "chemistry molecular_property_prediction",
-          "confidence": 0.8
-        },
-        "registry.source_urls": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
-          "confidence": 0.95
-        },
-        "fit.data_objects": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "molecule molecular_graph",
-          "confidence": 0.8
-        },
-        "fit.modalities": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "graph",
-          "confidence": 0.8
-        },
-        "identity.aliases": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "QM8; QM-8; qm8",
-          "confidence": 0.8
+          "evidence_text": "QM8",
+          "confidence": 1.0
         },
         "registry.evidence_level": {
           "evidence_type": "derived_metadata",
           "evidence_text": "curated_reference",
           "confidence": 0.9
         },
-        "registry.identity": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "QM8",
-          "confidence": 1.0
-        },
         "identity.canonical_url": {
           "evidence_type": "source_metadata",
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
           "confidence": 1.0
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "QM8; QM-8; qm8",
+          "confidence": 0.8
         }
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
@@ -1386,16 +1386,6 @@
         "last_verified_at": null
       },
       "evidence": {
-        "fit.modalities": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "graph",
-          "confidence": 0.8
-        },
-        "identity.aliases": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "QM9; QM-9; qm9",
-          "confidence": 0.8
-        },
         "registry.source_urls": {
           "evidence_type": "source_metadata",
           "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
@@ -1406,20 +1396,30 @@
           "evidence_text": "curated_reference",
           "confidence": 0.9
         },
-        "identity.canonical_url": {
+        "fit.subjects": {
           "evidence_type": "source_metadata",
-          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
-          "confidence": 1.0
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
         },
         "registry.identity": {
           "evidence_type": "source_metadata",
           "evidence_text": "QM9",
           "confidence": 1.0
         },
-        "fit.subjects": {
+        "fit.modalities": {
           "evidence_type": "source_metadata",
-          "evidence_text": "chemistry molecular_property_prediction",
+          "evidence_text": "graph",
           "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "QM9; QM-9; qm9",
+          "confidence": 0.8
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
         },
         "fit.data_objects": {
           "evidence_type": "source_metadata",
@@ -1429,7 +1429,267 @@
       },
       "provenance": {
         "adapter_version": "curated-registry-0.1.0",
-        "extracted_at": "2026-10-20T15:10:04Z",
+        "extracted_at": "2026-10-20T17:28:56Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:Breast Cancer Wisconsin (Diagnostic)",
+        "source": "curated",
+        "source_id": "Breast Cancer Wisconsin (Diagnostic)",
+        "canonical_url": "https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic",
+        "alternate_urls": [],
+        "aliases": [
+          "Breast Cancer Wisconsin (Diagnostic)",
+          "Breast Cancer Wisconsin",
+          "WDBC",
+          "Wisconsin Diagnostic Breast Cancer",
+          "17",
+          "breast-cancer-wisconsin-diagnostic"
+        ]
+      },
+      "content": {
+        "title": "Breast Cancer Wisconsin (Diagnostic)",
+        "summary": "UCI diagnostic breast-cancer classification benchmark.",
+        "search_text": "Breast Cancer Wisconsin (Diagnostic) UCI diagnostic breast-cancer classification benchmark. Breast Cancer Wisconsin (Diagnostic) Breast Cancer Wisconsin WDBC Wisconsin Diagnostic Breast Cancer 17 breast-cancer-wisconsin-diagnostic uci curated_reference tabular classification medical medical patient_record diagnosis",
+        "tags": [
+          "uci",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "tabular"
+        ],
+        "tasks": [
+          "classification"
+        ],
+        "domains": [
+          "medical"
+        ],
+        "subjects": [
+          "medical"
+        ],
+        "data_objects": [
+          "patient_record"
+        ],
+        "targets": [
+          "diagnosis"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Breast Cancer Wisconsin (Diagnostic)",
+          "confidence": 1.0
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic",
+          "confidence": 1.0
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic",
+          "confidence": 0.95
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "medical",
+          "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Breast Cancer Wisconsin (Diagnostic); Breast Cancer Wisconsin; WDBC; Wisconsin Diagnostic Breast Cancer; 17; breast-cancer-wisconsin-diagnostic",
+          "confidence": 0.8
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "tabular",
+          "confidence": 0.8
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "patient_record",
+          "confidence": 0.8
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T17:28:56Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:Iris",
+        "source": "curated",
+        "source_id": "Iris",
+        "canonical_url": "https://archive.ics.uci.edu/dataset/53/iris",
+        "alternate_urls": [],
+        "aliases": [
+          "Iris",
+          "Iris flower",
+          "Iris species",
+          "Fisher Iris",
+          "53",
+          "iris"
+        ]
+      },
+      "content": {
+        "title": "Iris",
+        "summary": "Fisher Iris flower-measurement classification benchmark.",
+        "search_text": "Iris Fisher Iris flower-measurement classification benchmark. Iris Iris flower Iris species Fisher Iris 53 iris uci curated_reference tabular classification botany botany plant_measurement species",
+        "tags": [
+          "uci",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "tabular"
+        ],
+        "tasks": [
+          "classification"
+        ],
+        "domains": [
+          "botany"
+        ],
+        "subjects": [
+          "botany"
+        ],
+        "data_objects": [
+          "plant_measurement"
+        ],
+        "targets": [
+          "species"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://archive.ics.uci.edu/dataset/53/iris",
+          "confidence": 1.0
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Iris; Iris flower; Iris species; Fisher Iris; 53; iris",
+          "confidence": 0.8
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "plant_measurement",
+          "confidence": 0.8
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "tabular",
+          "confidence": 0.8
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://archive.ics.uci.edu/dataset/53/iris",
+          "confidence": 0.95
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "botany",
+          "confidence": 0.8
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Iris",
+          "confidence": 1.0
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T17:28:56Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"
       }
