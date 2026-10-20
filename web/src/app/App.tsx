@@ -17,7 +17,7 @@ import {
   type RequirementBucket,
 } from "../features/requirements/requirementsState";
 import { ResultsList } from "../features/results/ResultsList";
-import type { QueryPriorities } from "../types/query";
+import type { NamedDatasetRole, QueryPriorities, ResearchQuery } from "../types/query";
 import type { RankedResult } from "../types/results";
 
 const DEFAULT_PRIORITIES: QueryPriorities = {
@@ -41,6 +41,7 @@ export function App() {
   const [catalogMessage, setCatalogMessage] = useState("Preparing the local catalog");
   const [wasmEngine, setWasmEngine] = useState<WasmSearchEngine | null>(null);
   const [results, setResults] = useState<RankedResult[]>([]);
+  const [confirmedQuery, setConfirmedQuery] = useState<ResearchQuery | null>(null);
   const [confirmed, setConfirmed] = useState(false);
 
   useEffect(() => {
@@ -78,6 +79,8 @@ export function App() {
     const extracted = extractRequirementsFromText(researchText, extractor);
     setSuggestions(toEditableRequirements(extracted.suggestions));
     setConfirmed(false);
+    setConfirmedQuery(null);
+    setResults([]);
     setError(null);
   };
 
@@ -92,6 +95,7 @@ export function App() {
     setError(null);
     try {
       const query = buildResearchQuery(researchText, suggestions, priorities);
+      setConfirmedQuery(query);
       setResults(wasmEngine.search(query, 10));
     } catch (searchError: unknown) {
       setResults([]);
@@ -128,6 +132,16 @@ export function App() {
     );
   };
 
+  const changeDatasetRole = (index: number, role: NamedDatasetRole) => {
+    setSuggestions((current) =>
+      current.map((suggestion, suggestionIndex) =>
+        suggestionIndex === index
+          ? { ...suggestion, role, named_dataset_role: role }
+          : suggestion,
+      ),
+    );
+  };
+
   return (
     <main className="app-page">
       <header className="site-header">
@@ -158,6 +172,7 @@ export function App() {
           <RequirementsForm
             suggestions={suggestions}
             onBucketChange={changeBucket}
+            onRoleChange={changeDatasetRole}
             onRemove={(index) =>
               setSuggestions((current) => current.filter((_, itemIndex) => itemIndex !== index))
             }
@@ -171,7 +186,7 @@ export function App() {
             </p>
           ) : null}
         </div>
-        <ResultsList results={results} isSearching={isSearching} />
+          <ResultsList results={results} query={confirmedQuery} isSearching={isSearching} />
       </div>
     </main>
   );

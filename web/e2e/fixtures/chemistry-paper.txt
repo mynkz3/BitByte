@@ -1,0 +1,3 @@
+We evaluate molecular property prediction on the ESOL and BACE benchmarks,
+with Lipophilicity used as an additional comparison dataset. The method uses a
+graph neural network (GNN) over molecular graphs and reports MAE and RMSE.

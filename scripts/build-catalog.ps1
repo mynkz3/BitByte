@@ -2,7 +2,7 @@ param(
   [string]$Output = "catalog/build",
   [string]$SourceCache = "catalog/source-cache",
   [string]$CatalogVersion = "local-$([DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ'))",
-  [int]$Limit = 100,
+  [int]$Limit = 500,
   [switch]$SkipLinkCheck
 )
 

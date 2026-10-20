@@ -73,12 +73,14 @@ describe("buildResearchQuery", () => {
       preferred: [],
       excluded: [],
     });
-    expect(query.requirements.named_datasets).toEqual([]);
+    expect(query.requirements.named_datasets).toEqual([
+      { name: "ESOL", role: "anchor" },
+    ]);
     expect(query.context).toEqual({
       goals: [],
-      frameworks: [],
-      models: [],
-      metrics: [],
+      frameworks: ["gnn"],
+      models: ["message passing neural network"],
+      metrics: ["f1"],
     });
   });
 });

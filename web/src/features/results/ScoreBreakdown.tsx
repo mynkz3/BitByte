@@ -5,9 +5,12 @@ interface ScoreBreakdownProps {
 }
 
 const LABELS: Array<[keyof Omit<ScoreBreakdownData, "total">, string]> = [
+  ["named_dataset_match", "Named dataset identity"],
   ["text_relevance", "Text relevance"],
   ["task_compatibility", "Task fit"],
   ["modality_compatibility", "Modality fit"],
+  ["subject_compatibility", "Subject fit"],
+  ["data_object_compatibility", "Data-object fit"],
   ["domain_target_match", "Domain and target"],
   ["constraint_satisfaction", "Requirements"],
   ["evaluation_readiness", "Evaluation readiness"],

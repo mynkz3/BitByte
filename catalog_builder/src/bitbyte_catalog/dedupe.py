@@ -10,7 +10,11 @@ def deduplicate_records(records: list[DatasetRecord]) -> list[DatasetRecord]:
     order: list[str] = []
 
     for record in records:
-        key = normalize_url(record.identity.canonical_url)
+        key = (
+            f"identity:{record.identity.source}:{record.identity.id}"
+            if record.identity.source == "curated"
+            else normalize_url(record.identity.canonical_url)
+        )
         if key not in by_url:
             by_url[key] = record
             order.append(key)
@@ -37,9 +41,12 @@ def merge_records(left: DatasetRecord, right: DatasetRecord) -> DatasetRecord:
     if right.quality.metadata_completeness > merged.quality.metadata_completeness:
         merged.quality.metadata_completeness = right.quality.metadata_completeness
     merged.content.tags = list(dict.fromkeys([*merged.content.tags, *right.content.tags]))
+    merged.identity.aliases = list(dict.fromkeys([*merged.identity.aliases, *right.identity.aliases]))
     merged.fit.modalities = list(dict.fromkeys([*merged.fit.modalities, *right.fit.modalities]))
     merged.fit.tasks = list(dict.fromkeys([*merged.fit.tasks, *right.fit.tasks]))
     merged.fit.domains = list(dict.fromkeys([*merged.fit.domains, *right.fit.domains]))
+    merged.fit.subjects = list(dict.fromkeys([*merged.fit.subjects, *right.fit.subjects]))
+    merged.fit.data_objects = list(dict.fromkeys([*merged.fit.data_objects, *right.fit.data_objects]))
     merged.fit.targets = list(dict.fromkeys([*merged.fit.targets, *right.fit.targets]))
     merged.evidence.update(right.evidence)
     return merged

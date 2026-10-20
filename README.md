@@ -7,7 +7,9 @@ relevant datasets.
 
 The runtime application is designed to be a static web app. Research input,
 search, and ranking happen locally in the browser. A scheduled catalog builder
-will publish verified metadata from Hugging Face Datasets, OpenML, and UCI.
+publishes verified metadata from Hugging Face Datasets, OpenML, and UCI, plus a
+checked-in canonical registry for named research benchmarks such as ESOL,
+BACE, and Lipophilicity.
 
 ## Development commands
 
@@ -40,7 +42,9 @@ ranked fixture datasets with score explanations.
 The scheduled catalog workflow fetches metadata from Hugging Face Datasets,
 OpenML, and UCI, verifies source links, and publishes a versioned static
 catalog artifact. A failed source can fall back to its last successful source
-snapshot and is marked stale in the manifest.
+snapshot and is marked stale in the manifest. General sources are capped at
+500 records per source; curated registry identities are published outside that
+cap.
 
 Run a local live refresh from PowerShell or Bash:
 

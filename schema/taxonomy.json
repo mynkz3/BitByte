@@ -48,7 +48,11 @@
   ],
   "data_objects": [
     "molecule",
-    "molecular_graph"
+    "molecular_graph",
+    "image",
+    "cat",
+    "document",
+    "patient_record"
   ],
   "metrics": [
     "accuracy",
@@ -117,7 +121,11 @@
     },
     "data_objects": {
       "molecule": ["molecules", "chemical compound", "compound"],
-      "molecular_graph": ["molecular graph", "molecular graphs"]
+      "molecular_graph": ["molecular graph", "molecular graphs"],
+      "image": ["images", "photograph", "photographs"],
+      "cat": ["cats", "feline", "felines"],
+      "document": ["documents", "paper"],
+      "patient_record": ["patient records", "clinical record"]
     }
   }
 }

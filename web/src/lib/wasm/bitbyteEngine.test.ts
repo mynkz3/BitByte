@@ -7,7 +7,7 @@ describe("BitByte WASM engine", () => {
     const bindings: WasmBindings = {
       initialize: async () => undefined,
       searchCatalog: () =>
-        new Float64Array([0, 92, 0.9, 1, 1, 1, 1, 1, 1, 0.92]),
+        new Float64Array([0, 92, 0, 0.9, 1, 1, 0, 0, 1, 1, 1, 1, 0.92]),
       extractRequirements: () =>
         JSON.stringify({
           suggestions: [

@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .build import build_catalog, build_live_catalog
 from .models import DatasetRecord
+from .registry import load_registry_records
 
 
 def main() -> None:
@@ -19,7 +20,7 @@ def main() -> None:
     live_parser.add_argument("--output", type=Path, default=Path("catalog/build"))
     live_parser.add_argument("--source-cache", type=Path, default=Path("catalog/source-cache"))
     live_parser.add_argument("--catalog-version", required=True)
-    live_parser.add_argument("--limit", type=int, default=100)
+    live_parser.add_argument("--limit", type=int, default=500)
     live_parser.add_argument("--skip-link-check", action="store_true")
     args = parser.parse_args()
 
@@ -30,6 +31,7 @@ def main() -> None:
             output_dir=args.output,
             catalog_version=args.catalog_version,
             source_versions={record.identity.source: "fixture" for record in records},
+            registry_records=load_registry_records(),
         )
         print(json.dumps(report, indent=2))
     elif args.command == "live":
@@ -44,6 +46,7 @@ def main() -> None:
             catalog_version=args.catalog_version,
             source_limit=args.limit,
             verify_links=not args.skip_link_check,
+            registry_records=load_registry_records(),
         )
         print(json.dumps(report, indent=2))
 

@@ -15,7 +15,7 @@ pub struct SearchEngine;
 impl SearchEngine {
     #[wasm_bindgen(js_name = engineVersion)]
     pub fn engine_version() -> String {
-        "0.1.0".to_owned()
+        "0.2.0".to_owned()
     }
 
     #[wasm_bindgen(js_name = extractRequirements)]

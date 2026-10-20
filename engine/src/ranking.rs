@@ -3,7 +3,9 @@ use std::cmp::Ordering;
 use serde::{Deserialize, Serialize};
 
 use crate::index::TextIndex;
-use crate::model::{CatalogArtifact, DatasetRecord, MatchGroup, QueryRequirements, ResearchQuery};
+use crate::model::{
+    CatalogArtifact, DatasetRecord, MatchGroup, NamedDatasetRole, QueryRequirements, ResearchQuery,
+};
 use crate::tokenizer::canonical;
 
 #[derive(Debug, Clone)]
@@ -14,9 +16,12 @@ pub struct RankingEngine {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct ScoreBreakdown {
+    pub named_dataset_match: f64,
     pub text_relevance: f64,
     pub task_compatibility: f64,
     pub modality_compatibility: f64,
+    pub subject_compatibility: f64,
+    pub data_object_compatibility: f64,
     pub domain_target_match: f64,
     pub constraint_satisfaction: f64,
     pub evaluation_readiness: f64,
@@ -40,6 +45,15 @@ pub struct RankedResult {
     pub matched_requirements: Vec<String>,
     pub unverified_requirements: Vec<String>,
     pub explanation_items: Vec<ExplanationItem>,
+    pub match_tier: u8,
+    pub named_dataset_matches: Vec<String>,
+}
+
+#[derive(Debug, Clone, Default)]
+struct IdentityMatch {
+    score: f64,
+    tier: u8,
+    names: Vec<String>,
 }
 
 impl RankingEngine {
@@ -75,14 +89,17 @@ impl RankingEngine {
                 continue;
             }
 
+            let identity_match = named_dataset_match(dataset, &query.requirements);
             let breakdown = calculate_breakdown(
                 dataset,
                 query,
                 normalize_text_score(raw_text_scores[index], max_text_score),
+                &identity_match,
             );
-            let explanation = explanations(dataset, query, &breakdown);
-            let matched_requirements = matched_requirements(dataset, query);
-            let unverified_requirements = unverified_requirements(dataset, query);
+            let match_tier = context_tier(dataset, &query.requirements, &identity_match);
+            let explanation = explanations(dataset, query, &breakdown, &identity_match);
+            let matched_requirements = matched_requirements(dataset, query, &identity_match);
+            let unverified_requirements = unverified_requirements(dataset, query, &identity_match);
 
             candidates.push(RankedResult {
                 dataset: dataset.clone(),
@@ -91,14 +108,21 @@ impl RankingEngine {
                 matched_requirements,
                 unverified_requirements,
                 explanation_items: explanation,
+                match_tier,
+                named_dataset_matches: identity_match.names,
             });
         }
 
         candidates.sort_by(|left, right| {
             right
-                .score
-                .partial_cmp(&left.score)
-                .unwrap_or(Ordering::Equal)
+                .match_tier
+                .cmp(&left.match_tier)
+                .then_with(|| {
+                    right
+                        .score
+                        .partial_cmp(&left.score)
+                        .unwrap_or(Ordering::Equal)
+                })
                 .then_with(|| left.dataset.identity.id.cmp(&right.dataset.identity.id))
         });
         candidates.truncate(limit);
@@ -118,7 +142,7 @@ impl RankingEngine {
         &self,
         query: &ResearchQuery,
         limit: usize,
-    ) -> Result<Vec<[f64; 10]>, String> {
+    ) -> Result<Vec<[f64; 13]>, String> {
         self.search(query, limit).map(|results| {
             results
                 .into_iter()
@@ -131,9 +155,12 @@ impl RankingEngine {
                     Some([
                         index as f64,
                         result.score,
+                        breakdown.named_dataset_match,
                         breakdown.text_relevance,
                         breakdown.task_compatibility,
                         breakdown.modality_compatibility,
+                        breakdown.subject_compatibility,
+                        breakdown.data_object_compatibility,
                         breakdown.domain_target_match,
                         breakdown.constraint_satisfaction,
                         breakdown.evaluation_readiness,
@@ -151,6 +178,8 @@ fn query_text(query: &ResearchQuery) -> String {
         &query.requirements.modalities,
         &query.requirements.tasks,
         &query.requirements.domains,
+        &query.requirements.subjects,
+        &query.requirements.data_objects,
         &query.requirements.targets,
         &query.requirements.languages,
         &query.requirements.licenses,
@@ -175,6 +204,8 @@ fn passes_hard_constraints(dataset: &DatasetRecord, requirements: &QueryRequirem
     let modality_values = &dataset.fit.modalities;
     let task_values = &dataset.fit.tasks;
     let domain_values = &dataset.fit.domains;
+    let subject_values = &dataset.fit.subjects;
+    let data_object_values = &dataset.fit.data_objects;
     let target_values = &dataset.fit.targets;
     let language_values = &dataset.fit.languages;
     let license_values = vec![
@@ -191,6 +222,8 @@ fn passes_hard_constraints(dataset: &DatasetRecord, requirements: &QueryRequirem
     if !group_passes(modality_values, &requirements.modalities)
         || !group_passes(task_values, &requirements.tasks)
         || !group_passes(domain_values, &requirements.domains)
+        || !group_passes(subject_values, &requirements.subjects)
+        || !group_passes(data_object_values, &requirements.data_objects)
         || !group_passes(target_values, &requirements.targets)
         || !group_passes(language_values, &requirements.languages)
         || !group_passes(&license_values, &requirements.licenses)
@@ -275,14 +308,83 @@ fn group_score(values: &[String], group: &MatchGroup) -> f64 {
     matched as f64 / requested.len() as f64
 }
 
+fn named_dataset_match(dataset: &DatasetRecord, requirements: &QueryRequirements) -> IdentityMatch {
+    let identity_values = [
+        dataset.identity.aliases.iter(),
+        std::slice::from_ref(&dataset.identity.source_id).iter(),
+        std::slice::from_ref(&dataset.content.title).iter(),
+        std::slice::from_ref(&dataset.content.citation).iter(),
+    ]
+    .into_iter()
+    .flatten()
+    .map(|value| canonical(value))
+    .filter(|value| !value.is_empty())
+    .collect::<Vec<_>>();
+    let mut result = IdentityMatch::default();
+
+    for reference in &requirements.named_datasets {
+        if reference.role == NamedDatasetRole::ContextOnly {
+            continue;
+        }
+        let wanted = canonical(&reference.name);
+        if wanted.is_empty() || !identity_values.iter().any(|value| value == &wanted) {
+            continue;
+        }
+        let score = match reference.role {
+            NamedDatasetRole::Anchor => 1.0,
+            NamedDatasetRole::Comparison => 0.75,
+            NamedDatasetRole::ContextOnly => 0.0,
+        };
+        let tier = match reference.role {
+            NamedDatasetRole::Anchor => 3,
+            NamedDatasetRole::Comparison => 2,
+            NamedDatasetRole::ContextOnly => 0,
+        };
+        if score > result.score {
+            result.score = score;
+            result.tier = tier;
+            result.names = vec![reference.name.clone()];
+        } else if score > 0.0 && (score - result.score).abs() < f64::EPSILON {
+            result.names.push(reference.name.clone());
+        }
+    }
+    result.names.sort();
+    result.names.dedup();
+    result
+}
+
+fn context_tier(
+    dataset: &DatasetRecord,
+    requirements: &QueryRequirements,
+    identity_match: &IdentityMatch,
+) -> u8 {
+    if identity_match.tier > 0 {
+        return identity_match.tier;
+    }
+    if group_score(&dataset.fit.subjects, &requirements.subjects) > 0.0
+        || group_score(&dataset.fit.data_objects, &requirements.data_objects) > 0.0
+        || group_score(&dataset.fit.tasks, &requirements.tasks) > 0.0
+        || group_score(&dataset.fit.targets, &requirements.targets) > 0.0
+        || group_score(&dataset.fit.domains, &requirements.domains) > 0.0
+    {
+        1
+    } else {
+        0
+    }
+}
+
 fn calculate_breakdown(
     dataset: &DatasetRecord,
     query: &ResearchQuery,
     text_relevance: f64,
+    identity_match: &IdentityMatch,
 ) -> ScoreBreakdown {
     let task_compatibility = group_score(&dataset.fit.tasks, &query.requirements.tasks);
     let modality_compatibility =
         group_score(&dataset.fit.modalities, &query.requirements.modalities);
+    let subject_compatibility = group_score(&dataset.fit.subjects, &query.requirements.subjects);
+    let data_object_compatibility =
+        group_score(&dataset.fit.data_objects, &query.requirements.data_objects);
     let domain_score = group_score(&dataset.fit.domains, &query.requirements.domains);
     let target_score = group_score(&dataset.fit.targets, &query.requirements.targets);
     let domain_target_match = average_non_empty([domain_score, target_score]);
@@ -290,7 +392,7 @@ fn calculate_breakdown(
     let evaluation_readiness = evaluation_score(dataset, &query.requirements);
     let quality_practical_fit = quality_score(dataset);
 
-    let components = [
+    let legacy_components = [
         (query.priorities.text_relevance, text_relevance),
         (query.priorities.task_compatibility, task_compatibility),
         (
@@ -308,21 +410,44 @@ fn calculate_breakdown(
             quality_practical_fit,
         ),
     ];
-    let weight_total = components.iter().map(|(weight, _)| weight).sum::<f64>();
-    let total = if weight_total <= f64::EPSILON {
+    let weight_total = legacy_components
+        .iter()
+        .map(|(weight, _)| weight)
+        .sum::<f64>();
+    let legacy_total = if weight_total <= f64::EPSILON {
         0.0
     } else {
-        components
+        legacy_components
             .iter()
             .map(|(weight, value)| weight * value)
             .sum::<f64>()
             / weight_total
     };
 
+    let structured_total = (identity_match.score * 0.45
+        + subject_compatibility * 0.2
+        + data_object_compatibility * 0.15
+        + task_compatibility * 0.08
+        + modality_compatibility * 0.04
+        + domain_target_match * 0.04)
+        .clamp(0.0, 1.0);
+    let tier_base = match identity_match.tier {
+        3 => 0.72,
+        2 => 0.48,
+        _ if structured_total > 0.0 => 0.22,
+        _ => 0.0,
+    };
+    let total =
+        (tier_base + structured_total * 0.22 + legacy_total * 0.05 + quality_practical_fit * 0.03)
+            .clamp(0.0, 1.0);
+
     ScoreBreakdown {
+        named_dataset_match: identity_match.score,
         text_relevance,
         task_compatibility,
         modality_compatibility,
+        subject_compatibility,
+        data_object_compatibility,
         domain_target_match,
         constraint_satisfaction,
         evaluation_readiness,
@@ -351,6 +476,8 @@ fn constraint_score(dataset: &DatasetRecord, requirements: &QueryRequirements) -
         (&dataset.fit.modalities, &requirements.modalities),
         (&dataset.fit.tasks, &requirements.tasks),
         (&dataset.fit.domains, &requirements.domains),
+        (&dataset.fit.subjects, &requirements.subjects),
+        (&dataset.fit.data_objects, &requirements.data_objects),
         (&dataset.fit.targets, &requirements.targets),
         (&dataset.fit.languages, &requirements.languages),
     ] {
@@ -440,8 +567,15 @@ fn quality_score(dataset: &DatasetRecord) -> f64 {
     dataset.quality.metadata_completeness * availability * access
 }
 
-fn matched_requirements(dataset: &DatasetRecord, query: &ResearchQuery) -> Vec<String> {
+fn matched_requirements(
+    dataset: &DatasetRecord,
+    query: &ResearchQuery,
+    identity_match: &IdentityMatch,
+) -> Vec<String> {
     let mut matches = Vec::new();
+    if !identity_match.names.is_empty() {
+        matches.push("named_dataset".to_owned());
+    }
     if group_score(&dataset.fit.modalities, &query.requirements.modalities) > 0.0 {
         matches.push("modality".to_owned());
     }
@@ -451,14 +585,34 @@ fn matched_requirements(dataset: &DatasetRecord, query: &ResearchQuery) -> Vec<S
     if group_score(&dataset.fit.domains, &query.requirements.domains) > 0.0 {
         matches.push("domain".to_owned());
     }
+    if group_score(&dataset.fit.subjects, &query.requirements.subjects) > 0.0 {
+        matches.push("subject".to_owned());
+    }
+    if group_score(&dataset.fit.data_objects, &query.requirements.data_objects) > 0.0 {
+        matches.push("data_object".to_owned());
+    }
     if group_score(&dataset.fit.targets, &query.requirements.targets) > 0.0 {
         matches.push("target".to_owned());
     }
     matches
 }
 
-fn unverified_requirements(dataset: &DatasetRecord, query: &ResearchQuery) -> Vec<String> {
+fn unverified_requirements(
+    dataset: &DatasetRecord,
+    query: &ResearchQuery,
+    identity_match: &IdentityMatch,
+) -> Vec<String> {
     let mut unverified = Vec::new();
+    for reference in &query.requirements.named_datasets {
+        if reference.role != NamedDatasetRole::ContextOnly
+            && !identity_match
+                .names
+                .iter()
+                .any(|name| name == &reference.name)
+        {
+            unverified.push(format!("named_dataset:{}", reference.name));
+        }
+    }
     if !query.requirements.modalities.must_have.is_empty()
         && group_score(&dataset.fit.modalities, &query.requirements.modalities) < 1.0
     {
@@ -468,6 +622,16 @@ fn unverified_requirements(dataset: &DatasetRecord, query: &ResearchQuery) -> Ve
         && group_score(&dataset.fit.domains, &query.requirements.domains) < 1.0
     {
         unverified.push("domain".to_owned());
+    }
+    if !query.requirements.subjects.must_have.is_empty()
+        && group_score(&dataset.fit.subjects, &query.requirements.subjects) < 1.0
+    {
+        unverified.push("subject".to_owned());
+    }
+    if !query.requirements.data_objects.must_have.is_empty()
+        && group_score(&dataset.fit.data_objects, &query.requirements.data_objects) < 1.0
+    {
+        unverified.push("data_object".to_owned());
     }
     if !query.requirements.targets.preferred.is_empty()
         && group_score(&dataset.fit.targets, &query.requirements.targets) < 1.0
@@ -484,8 +648,37 @@ fn explanations(
     dataset: &DatasetRecord,
     query: &ResearchQuery,
     breakdown: &ScoreBreakdown,
+    identity_match: &IdentityMatch,
 ) -> Vec<ExplanationItem> {
     let mut items = Vec::new();
+    if !identity_match.names.is_empty() {
+        let names = identity_match.names.join(", ");
+        let role_text = if identity_match.tier == 3 {
+            "anchor"
+        } else {
+            "comparison"
+        };
+        items.push(ExplanationItem {
+            category: "named_dataset".to_owned(),
+            tone: "positive".to_owned(),
+            text: format!("Exact alias match for {names} ({role_text})"),
+            contribution: identity_match.score,
+        });
+    }
+    add_match_explanation(
+        &mut items,
+        "subject",
+        breakdown.subject_compatibility,
+        "research subject matches the dataset",
+        "research subject is not reported as a match",
+    );
+    add_match_explanation(
+        &mut items,
+        "data_object",
+        breakdown.data_object_compatibility,
+        "data object matches the research context",
+        "data object fit is not reported as a match",
+    );
     add_match_explanation(
         &mut items,
         "modality",
@@ -529,6 +722,33 @@ fn explanations(
             tone: "positive".to_owned(),
             text: "required dataset splits are present".to_owned(),
             contribution: breakdown.constraint_satisfaction,
+        });
+    }
+    if !query.context.frameworks.is_empty() || !query.context.models.is_empty() {
+        items.push(ExplanationItem {
+            category: "experiment_context".to_owned(),
+            tone: "neutral".to_owned(),
+            text: format!(
+                "Framework/model context noted: {}",
+                [
+                    query.context.frameworks.as_slice(),
+                    query.context.models.as_slice()
+                ]
+                .concat()
+                .join(", ")
+            ),
+            contribution: 0.0,
+        });
+    }
+    if !query.context.metrics.is_empty() {
+        items.push(ExplanationItem {
+            category: "evaluation_context".to_owned(),
+            tone: "neutral".to_owned(),
+            text: format!(
+                "Evaluation metrics noted but not used as dataset identity: {}",
+                query.context.metrics.join(", ")
+            ),
+            contribution: 0.0,
         });
     }
     items

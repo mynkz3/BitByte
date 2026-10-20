@@ -56,6 +56,103 @@ fn engine() -> RankingEngine {
     .expect("test catalog should build")
 }
 
+fn chemistry_record(name: &str, aliases: Vec<&str>) -> DatasetRecord {
+    let mut dataset = dataset_fixture();
+    dataset.identity.id = format!("curated:{name}");
+    dataset.identity.source = "curated".to_owned();
+    dataset.identity.source_id = name.to_owned();
+    dataset.identity.aliases = aliases.into_iter().map(str::to_owned).collect();
+    dataset.identity.canonical_url = format!("https://example.test/{name}");
+    dataset.content.title = name.to_owned();
+    dataset.content.summary =
+        "Molecular property prediction dataset with molecular graphs.".to_owned();
+    dataset.content.search_text = format!("{name} chemistry molecular graph regression solubility");
+    dataset.fit.modalities = vec!["graph".to_owned()];
+    dataset.fit.tasks = vec!["regression".to_owned()];
+    dataset.fit.domains = vec!["chemistry".to_owned()];
+    dataset.fit.subjects = vec![
+        "chemistry".to_owned(),
+        "molecular_property_prediction".to_owned(),
+    ];
+    dataset.fit.data_objects = vec!["molecule".to_owned(), "molecular_graph".to_owned()];
+    dataset.fit.targets = vec!["solubility".to_owned()];
+    dataset.practical.license.category = "unknown".to_owned();
+    dataset.practical.license.label = None;
+    dataset
+}
+
+fn cybersecurity_record() -> DatasetRecord {
+    let mut dataset = chemistry_record("cyber-graph-benchmark", vec!["cyber graph benchmark"]);
+    dataset.identity.id = "cybersecurity:graph".to_owned();
+    dataset.identity.source = "cybersecurity".to_owned();
+    dataset.identity.source_id = "graph".to_owned();
+    dataset.content.title = "Cybersecurity Graph Benchmark".to_owned();
+    dataset.content.summary = "Graph framework benchmark reported with MAE and RMSE.".to_owned();
+    dataset.content.search_text = "graph graph graph MAE RMSE framework".to_owned();
+    dataset.fit.domains = vec!["cybersecurity".to_owned()];
+    dataset.fit.subjects = vec![];
+    dataset.fit.data_objects = vec!["graph".to_owned()];
+    dataset
+}
+
+fn chemistry_query() -> ResearchQuery {
+    let mut query = query_fixture();
+    query.source_text = "graph graph graph MAE RMSE framework".to_owned();
+    query.requirements.modalities = MatchGroup {
+        must_have: vec![],
+        preferred: vec![],
+        excluded: vec![],
+    };
+    query.requirements.tasks = MatchGroup {
+        must_have: vec![],
+        preferred: vec!["regression".to_owned()],
+        excluded: vec![],
+    };
+    query.requirements.domains = MatchGroup {
+        must_have: vec![],
+        preferred: vec![],
+        excluded: vec![],
+    };
+    query.requirements.subjects = MatchGroup {
+        must_have: vec![],
+        preferred: vec!["chemistry".to_owned()],
+        excluded: vec![],
+    };
+    query.requirements.data_objects = MatchGroup {
+        must_have: vec![],
+        preferred: vec!["molecular_graph".to_owned()],
+        excluded: vec![],
+    };
+    query.requirements.targets = MatchGroup {
+        must_have: vec![],
+        preferred: vec![],
+        excluded: vec![],
+    };
+    query.requirements.licenses = MatchGroup {
+        must_have: vec![],
+        preferred: vec![],
+        excluded: vec![],
+    };
+    query.requirements.required_splits = vec![];
+    query.requirements.min_records = None;
+    query.context.frameworks = vec!["gnn".to_owned()];
+    query.context.metrics = vec!["mae".to_owned(), "rmse".to_owned()];
+    query
+}
+
+fn chemistry_engine() -> RankingEngine {
+    RankingEngine::from_catalog(CatalogArtifact {
+        catalog_version: "chemistry-test".to_owned(),
+        schema_version: "0.2.0".to_owned(),
+        records: vec![
+            chemistry_record("ESOL", vec!["ESOL", "Delaney solubility"]),
+            chemistry_record("AqSolDB", vec!["AqSolDB"]),
+            cybersecurity_record(),
+        ],
+    })
+    .expect("chemistry catalog should build")
+}
+
 #[test]
 fn context_and_bm25_rank_the_matching_modality_first() {
     let results = engine()
@@ -179,4 +276,48 @@ fn rejects_duplicate_named_datasets_at_search_boundary() {
         .expect_err("duplicate named datasets should be rejected");
 
     assert!(error.contains("requirements.named_datasets"));
+}
+
+#[test]
+fn exact_paper_dataset_beats_generic_framework_and_metric_overlap() {
+    let mut query = chemistry_query();
+    query.requirements.named_datasets = vec![NamedDatasetReference {
+        name: "ESOL".to_owned(),
+        role: NamedDatasetRole::Anchor,
+    }];
+
+    let results = chemistry_engine()
+        .search(&query, 10)
+        .expect("search should work");
+
+    assert_eq!(results[0].dataset.identity.id, "curated:ESOL");
+    assert!(results[0].score_breakdown.named_dataset_match > 0.0);
+    assert!(results[0]
+        .explanation_items
+        .iter()
+        .any(|item| item.text.contains("ESOL")));
+}
+
+#[test]
+fn context_only_named_dataset_does_not_change_ranking() {
+    let mut query = chemistry_query();
+    query.requirements.named_datasets = vec![NamedDatasetReference {
+        name: "ESOL".to_owned(),
+        role: NamedDatasetRole::ContextOnly,
+    }];
+
+    let results = chemistry_engine()
+        .search(&query, 10)
+        .expect("search should work");
+
+    assert_eq!(results[0].score_breakdown.named_dataset_match, 0.0);
+}
+
+#[test]
+fn repeated_source_text_terms_do_not_overpower_structured_context() {
+    let results = chemistry_engine()
+        .search(&chemistry_query(), 10)
+        .expect("search should work");
+
+    assert_ne!(results[0].dataset.identity.source, "cybersecurity");
 }

@@ -155,9 +155,12 @@ def make_record(
     summary: str,
     canonical_url: str,
     tags: Iterable[str],
+    aliases: Iterable[str] = (),
     modalities: Iterable[str],
     tasks: Iterable[str],
     domains: Iterable[str],
+    subjects: Iterable[str] = (),
+    data_objects: Iterable[str] = (),
     targets: Iterable[str],
     languages: Iterable[str],
     license_value: str | None,
@@ -169,6 +172,7 @@ def make_record(
     splits: DatasetSplits | None = None,
     annotation_types: Iterable[str] = (),
     citation: str = "",
+    alternate_urls: Iterable[str] = (),
 ) -> DatasetRecord:
     normalized_tags = list(dict.fromkeys(_normalized(value) for value in tags if value))
     normalized_modalities = canonicalize_terms(modalities, "modalities")
@@ -176,6 +180,15 @@ def make_record(
     normalized_domains = canonicalize_terms(domains, "domains")
     normalized_languages = canonicalize_terms(languages, "languages")
     normalized_annotations = canonicalize_terms(annotation_types, "annotation_types")
+    normalized_subjects = canonicalize_terms(subjects, "subjects")
+    normalized_data_objects = canonicalize_terms(data_objects, "data_objects")
+    normalized_aliases = list(
+        dict.fromkeys(
+            value.strip()
+            for value in [title, source_id, *aliases]
+            if value and value.strip()
+        )
+    )
     normalized_targets = list(dict.fromkeys(value.strip().lower() for value in targets if value))
     summary = summary.strip()
     title = title.strip() or source_id
@@ -196,10 +209,13 @@ def make_record(
         [
             title,
             summary,
+            " ".join(normalized_aliases),
             " ".join(normalized_tags),
             " ".join(normalized_modalities),
             " ".join(normalized_tasks),
             " ".join(normalized_domains),
+            " ".join(normalized_subjects),
+            " ".join(normalized_data_objects),
             " ".join(normalized_targets),
         ]
     ).strip()
@@ -221,8 +237,8 @@ def make_record(
             source=source,
             source_id=source_id,
             canonical_url=canonical_url,
-            alternate_urls=[],
-            aliases=[],
+            alternate_urls=list(dict.fromkeys(url for url in alternate_urls if url)),
+            aliases=normalized_aliases,
         ),
         content=DatasetContent(
             title=title,
@@ -235,8 +251,8 @@ def make_record(
             modalities=normalized_modalities,
             tasks=normalized_tasks,
             domains=normalized_domains,
-            subjects=[],
-            data_objects=[],
+            subjects=normalized_subjects,
+            data_objects=normalized_data_objects,
             targets=normalized_targets,
             languages=normalized_languages,
             geography=[],
@@ -262,6 +278,21 @@ def make_record(
             ),
             "fit.modalities": Evidence(
                 evidence_type="source_metadata", evidence_text=" ".join(normalized_modalities) or None, confidence=0.8
+            ),
+            "identity.aliases": Evidence(
+                evidence_type="source_metadata",
+                evidence_text="; ".join(normalized_aliases) or None,
+                confidence=0.8,
+            ),
+            "fit.subjects": Evidence(
+                evidence_type="source_metadata",
+                evidence_text=" ".join(normalized_subjects) or None,
+                confidence=0.8,
+            ),
+            "fit.data_objects": Evidence(
+                evidence_type="source_metadata",
+                evidence_text=" ".join(normalized_data_objects) or None,
+                confidence=0.8,
             ),
         },
         provenance=DatasetProvenance(

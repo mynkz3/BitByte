@@ -18,7 +18,13 @@ export function DatasetCard({ result, position }: DatasetCardProps) {
       <h3>{dataset.content.title}</h3>
       <p className="dataset-summary">{dataset.content.summary || "No summary reported."}</p>
       <div className="tag-list" aria-label="Dataset properties">
-        {[...dataset.fit.modalities, ...dataset.fit.tasks, ...dataset.fit.domains]
+        {[
+          ...dataset.fit.modalities,
+          ...dataset.fit.tasks,
+          ...dataset.fit.domains,
+          ...dataset.fit.subjects,
+          ...dataset.fit.data_objects,
+        ]
           .slice(0, 6)
           .map((tag) => (
             <span className="tag" key={tag}>
@@ -31,6 +37,14 @@ export function DatasetCard({ result, position }: DatasetCardProps) {
         <span>{dataset.practical.license.label ?? "License not reported"}</span>
         <span>{dataset.quality.availability_status}</span>
       </div>
+      {result.named_dataset_matches && result.named_dataset_matches.length > 0 ? (
+        <p className="exact-match-badge">
+          Exact alias match: {result.named_dataset_matches.join(", ")}
+        </p>
+      ) : null}
+      {dataset.identity.aliases.length > 0 ? (
+        <p className="dataset-aliases">Also known as: {dataset.identity.aliases.slice(0, 4).join(", ")}</p>
+      ) : null}
       <ul className="explanation-list">
         {result.explanation_items.slice(0, 4).map((item) => (
           <li className={`explanation-${item.tone}`} key={`${item.category}-${item.text}`}>

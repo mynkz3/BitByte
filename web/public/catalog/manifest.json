@@ -1,15 +1,14 @@
 {
   "catalog_version": "fixture-catalog",
   "schema_version": "0.2.0",
-  "generated_at": "2026-10-19T00:00:00Z",
+  "generated_at": "2026-10-20T15:10:04Z",
   "source_versions": {
-    "huggingface": "fixture",
-    "openml": "fixture"
+    "huggingface": "fixture"
   },
   "record_counts": {
-    "total": 2,
+    "curated": 11,
     "huggingface": 1,
-    "openml": 1
+    "total": 12
   },
   "stale_sources": [],
   "validation_summary": {

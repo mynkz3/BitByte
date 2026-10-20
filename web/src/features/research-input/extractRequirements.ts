@@ -19,13 +19,24 @@ export function extractRequirementsFromText(
 function deduplicateSuggestions(
   suggestions: RequirementSuggestion[],
 ): RequirementSuggestion[] {
-  const seen = new Set<string>();
-  return suggestions.filter((suggestion) => {
+  const strongest = new Map<string, RequirementSuggestion>();
+  suggestions.forEach((suggestion) => {
     const key = `${suggestion.field}:${suggestion.value}`;
-    if (seen.has(key)) {
-      return false;
+    const current = strongest.get(key);
+    if (
+      !current ||
+      suggestion.confidence > current.confidence ||
+      (suggestion.confidence === current.confidence &&
+        (suggestion.span?.start ?? Number.MAX_SAFE_INTEGER) <
+          (current.span?.start ?? Number.MAX_SAFE_INTEGER))
+    ) {
+      strongest.set(key, suggestion);
     }
-    seen.add(key);
-    return true;
   });
+  return [...strongest.values()].sort(
+    (left, right) =>
+      left.field.localeCompare(right.field) ||
+      left.value.localeCompare(right.value) ||
+      (left.span?.start ?? 0) - (right.span?.start ?? 0),
+  );
 }

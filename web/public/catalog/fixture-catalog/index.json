@@ -4,6 +4,1438 @@
   "records": [
     {
       "identity": {
+        "id": "curated:ESOL",
+        "source": "curated",
+        "source_id": "ESOL",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "ESOL",
+          "Delaney solubility",
+          "delaney",
+          "esol"
+        ]
+      },
+      "content": {
+        "title": "ESOL",
+        "summary": "Delaney aqueous solubility benchmark.",
+        "search_text": "ESOL Delaney aqueous solubility benchmark. ESOL Delaney solubility delaney esol moleculenet curated_reference graph regression chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph solubility",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "regression"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "solubility"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "ESOL; Delaney solubility; delaney; esol",
+          "confidence": 0.8
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "ESOL",
+          "confidence": 1.0
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:BACE",
+        "source": "curated",
+        "source_id": "BACE",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "BACE",
+          "bace classification",
+          "bace"
+        ]
+      },
+      "content": {
+        "title": "BACE",
+        "summary": "Beta-secretase binding classification benchmark.",
+        "search_text": "BACE Beta-secretase binding classification benchmark. BACE bace classification bace moleculenet curated_reference graph classification chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph binding",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "classification"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "binding"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "BACE; bace classification; bace",
+          "confidence": 0.8
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "BACE",
+          "confidence": 1.0
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:Lipophilicity",
+        "source": "curated",
+        "source_id": "Lipophilicity",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "Lipophilicity",
+          "delaney lipophilicity",
+          "lipophilicity"
+        ]
+      },
+      "content": {
+        "title": "Lipophilicity",
+        "summary": "MoleculeNet lipophilicity benchmark.",
+        "search_text": "Lipophilicity MoleculeNet lipophilicity benchmark. Lipophilicity delaney lipophilicity lipophilicity moleculenet curated_reference graph regression chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph lipophilicity",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "regression"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "lipophilicity"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Lipophilicity; delaney lipophilicity; lipophilicity",
+          "confidence": 0.8
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Lipophilicity",
+          "confidence": 1.0
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:BBBP",
+        "source": "curated",
+        "source_id": "BBBP",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "BBBP",
+          "blood-brain barrier penetration",
+          "bbbp"
+        ]
+      },
+      "content": {
+        "title": "BBBP",
+        "summary": "Blood-brain barrier penetration classification benchmark.",
+        "search_text": "BBBP Blood-brain barrier penetration classification benchmark. BBBP blood-brain barrier penetration bbbp moleculenet curated_reference graph classification chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph permeability",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "classification"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "permeability"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "BBBP",
+          "confidence": 1.0
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "BBBP; blood-brain barrier penetration; bbbp",
+          "confidence": 0.8
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:Tox21",
+        "source": "curated",
+        "source_id": "Tox21",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "Tox21",
+          "Tox-21",
+          "tox21"
+        ]
+      },
+      "content": {
+        "title": "Tox21",
+        "summary": "Toxicity classification benchmark.",
+        "search_text": "Tox21 Toxicity classification benchmark. Tox21 Tox-21 tox21 moleculenet curated_reference graph classification chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph toxicity",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "classification"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "toxicity"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Tox21; Tox-21; tox21",
+          "confidence": 0.8
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "Tox21",
+          "confidence": 1.0
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:ClinTox",
+        "source": "curated",
+        "source_id": "ClinTox",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "ClinTox",
+          "Clin-Tox",
+          "clinical toxicity",
+          "clintox"
+        ]
+      },
+      "content": {
+        "title": "ClinTox",
+        "summary": "Clinical toxicity classification benchmark.",
+        "search_text": "ClinTox Clinical toxicity classification benchmark. ClinTox Clin-Tox clinical toxicity clintox moleculenet curated_reference graph classification chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph toxicity",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "classification"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "toxicity"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "ClinTox; Clin-Tox; clinical toxicity; clintox",
+          "confidence": 0.8
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "ClinTox",
+          "confidence": 1.0
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:HIV",
+        "source": "curated",
+        "source_id": "HIV",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "HIV",
+          "HIV inhibition",
+          "hiv"
+        ]
+      },
+      "content": {
+        "title": "HIV",
+        "summary": "HIV inhibition classification benchmark.",
+        "search_text": "HIV HIV inhibition classification benchmark. HIV HIV inhibition hiv moleculenet curated_reference graph classification chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph inhibition",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "classification"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "inhibition"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "HIV; HIV inhibition; hiv",
+          "confidence": 0.8
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "HIV",
+          "confidence": 1.0
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:SIDER",
+        "source": "curated",
+        "source_id": "SIDER",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "SIDER",
+          "side effect resource",
+          "sider"
+        ]
+      },
+      "content": {
+        "title": "SIDER",
+        "summary": "Side-effect classification benchmark.",
+        "search_text": "SIDER Side-effect classification benchmark. SIDER side effect resource sider moleculenet curated_reference graph classification chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph side_effect",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "classification"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "side_effect"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "SIDER",
+          "confidence": 1.0
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "SIDER; side effect resource; sider",
+          "confidence": 0.8
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:QM7",
+        "source": "curated",
+        "source_id": "QM7",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "QM7",
+          "QM-7",
+          "qm7"
+        ]
+      },
+      "content": {
+        "title": "QM7",
+        "summary": "Quantum chemistry regression benchmark.",
+        "search_text": "QM7 Quantum chemistry regression benchmark. QM7 QM-7 qm7 moleculenet curated_reference graph regression chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph atomization_energy",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "regression"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "atomization_energy"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "QM7",
+          "confidence": 1.0
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "QM7; QM-7; qm7",
+          "confidence": 0.8
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:QM8",
+        "source": "curated",
+        "source_id": "QM8",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "QM8",
+          "QM-8",
+          "qm8"
+        ]
+      },
+      "content": {
+        "title": "QM8",
+        "summary": "Quantum chemistry property regression benchmark.",
+        "search_text": "QM8 Quantum chemistry property regression benchmark. QM8 QM-8 qm8 moleculenet curated_reference graph regression chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph quantum_property",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "regression"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "quantum_property"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        },
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "QM8; QM-8; qm8",
+          "confidence": 0.8
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "QM8",
+          "confidence": 1.0
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
+        "id": "curated:QM9",
+        "source": "curated",
+        "source_id": "QM9",
+        "canonical_url": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+        "alternate_urls": [],
+        "aliases": [
+          "QM9",
+          "QM-9",
+          "qm9"
+        ]
+      },
+      "content": {
+        "title": "QM9",
+        "summary": "Quantum chemistry molecular property regression benchmark.",
+        "search_text": "QM9 Quantum chemistry molecular property regression benchmark. QM9 QM-9 qm9 moleculenet curated_reference graph regression chemistry molecular_property_prediction chemistry molecular_property_prediction molecule molecular_graph quantum_property",
+        "tags": [
+          "moleculenet",
+          "curated_reference"
+        ],
+        "citation": ""
+      },
+      "fit": {
+        "modalities": [
+          "graph"
+        ],
+        "tasks": [
+          "regression"
+        ],
+        "domains": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "subjects": [
+          "chemistry",
+          "molecular_property_prediction"
+        ],
+        "data_objects": [
+          "molecule",
+          "molecular_graph"
+        ],
+        "targets": [
+          "quantum_property"
+        ],
+        "languages": [],
+        "geography": [],
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [],
+        "attributes": {}
+      },
+      "practical": {
+        "size": {
+          "bytes": null,
+          "records": null,
+          "features": null
+        },
+        "splits": {
+          "train": false,
+          "validation": false,
+          "test": false
+        },
+        "license": {
+          "spdx_id": null,
+          "label": null,
+          "url": null,
+          "category": "unknown"
+        },
+        "access_type": "public"
+      },
+      "quality": {
+        "metadata_completeness": 0.571,
+        "availability_status": "unknown",
+        "warnings": [
+          "curated identity; source availability not asserted"
+        ],
+        "last_verified_at": null
+      },
+      "evidence": {
+        "fit.modalities": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "graph",
+          "confidence": 0.8
+        },
+        "identity.aliases": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "QM9; QM-9; qm9",
+          "confidence": 0.8
+        },
+        "registry.source_urls": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 0.95
+        },
+        "registry.evidence_level": {
+          "evidence_type": "derived_metadata",
+          "evidence_text": "curated_reference",
+          "confidence": 0.9
+        },
+        "identity.canonical_url": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html",
+          "confidence": 1.0
+        },
+        "registry.identity": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "QM9",
+          "confidence": 1.0
+        },
+        "fit.subjects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "chemistry molecular_property_prediction",
+          "confidence": 0.8
+        },
+        "fit.data_objects": {
+          "evidence_type": "source_metadata",
+          "evidence_text": "molecule molecular_graph",
+          "confidence": 0.8
+        }
+      },
+      "provenance": {
+        "adapter_version": "curated-registry-0.1.0",
+        "extracted_at": "2026-10-20T15:10:04Z",
+        "source_updated_at": null,
+        "schema_version": "0.2.0"
+      }
+    },
+    {
+      "identity": {
         "id": "huggingface:bitbyte/demo-image",
         "source": "huggingface",
         "source_id": "bitbyte/demo-image",
@@ -12,28 +1444,59 @@
         "aliases": []
       },
       "content": {
-        "title": "Demo Retinal Images",
-        "summary": "A labeled retinal image dataset for classification.",
-        "search_text": "demo retinal images image classification medical retinopathy",
-        "tags": ["image", "classification", "medical"],
+        "title": "Demo Image Classification Dataset",
+        "summary": "Small image dataset for classification experiments.",
+        "search_text": "demo image classification medical retinopathy",
+        "tags": [
+          "image",
+          "classification",
+          "medical"
+        ],
         "citation": "BitByte Demo Dataset, 2026"
       },
       "fit": {
-        "modalities": ["image"],
-        "tasks": ["classification"],
-        "domains": ["medical"],
+        "modalities": [
+          "image"
+        ],
+        "tasks": [
+          "classification"
+        ],
+        "domains": [
+          "medical"
+        ],
         "subjects": [],
         "data_objects": [],
-        "targets": ["retinopathy"],
-        "languages": ["en"],
+        "targets": [
+          "retinopathy"
+        ],
+        "languages": [],
         "geography": [],
-        "time_range": {"start": null, "end": null},
-        "annotation_types": ["image_labels"],
-        "attributes": {"image": {"width": 224, "height": 224, "channels": 3}}
+        "time_range": {
+          "start": null,
+          "end": null
+        },
+        "annotation_types": [
+          "image_labels"
+        ],
+        "attributes": {
+          "image": {
+            "channels": 3,
+            "height": 224,
+            "width": 224
+          }
+        }
       },
       "practical": {
-        "size": {"bytes": 1200000, "records": 1000, "features": null},
-        "splits": {"train": true, "validation": true, "test": true},
+        "size": {
+          "bytes": 1200000,
+          "records": 1000,
+          "features": null
+        },
+        "splits": {
+          "train": true,
+          "validation": true,
+          "test": true
+        },
         "license": {
           "spdx_id": "MIT",
           "label": "MIT",
@@ -57,66 +1520,6 @@
       },
       "provenance": {
         "adapter_version": "huggingface-0.1.0",
-        "extracted_at": "2026-10-19T00:00:00Z",
-        "source_updated_at": null,
-        "schema_version": "0.2.0"
-      }
-    },
-    {
-      "identity": {
-        "id": "openml:demo-text",
-        "source": "openml",
-        "source_id": "demo-text",
-        "canonical_url": "https://www.openml.org/d/demo-text",
-        "alternate_urls": [],
-        "aliases": []
-      },
-      "content": {
-        "title": "Demo Text Classification Dataset",
-        "summary": "A text sentiment classification dataset.",
-        "search_text": "demo text sentiment classification social science",
-        "tags": ["text", "classification"],
-        "citation": "BitByte Demo Text Dataset, 2026"
-      },
-      "fit": {
-        "modalities": ["text"],
-        "tasks": ["classification"],
-        "domains": ["social_science"],
-        "subjects": [],
-        "data_objects": [],
-        "targets": ["sentiment"],
-        "languages": ["en"],
-        "geography": [],
-        "time_range": {"start": null, "end": null},
-        "annotation_types": ["class_labels"],
-        "attributes": {}
-      },
-      "practical": {
-        "size": {"bytes": 800000, "records": 900, "features": 2},
-        "splits": {"train": true, "validation": false, "test": true},
-        "license": {
-          "spdx_id": "MIT",
-          "label": "MIT",
-          "url": "https://spdx.org/licenses/MIT.html",
-          "category": "permissive"
-        },
-        "access_type": "public"
-      },
-      "quality": {
-        "metadata_completeness": 0.85,
-        "availability_status": "reachable",
-        "warnings": [],
-        "last_verified_at": "2026-10-19T00:00:00Z"
-      },
-      "evidence": {
-        "fit.modalities": {
-          "evidence_type": "source_metadata",
-          "evidence_text": "Text sentiment classification dataset",
-          "confidence": 0.9
-        }
-      },
-      "provenance": {
-        "adapter_version": "openml-0.1.0",
         "extracted_at": "2026-10-19T00:00:00Z",
         "source_updated_at": null,
         "schema_version": "0.2.0"

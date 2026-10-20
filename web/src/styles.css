@@ -330,6 +330,27 @@ a:focus-visible {
   margin-bottom: 1.25rem;
 }
 
+.requirement-groups,
+.result-groups {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.requirement-group h3,
+.result-group h3 {
+  margin: 0 0 0.7rem;
+  color: #344158;
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+}
+
+.requirement-evidence {
+  margin: 0.35rem 0 0;
+  color: #9aa5b7;
+  font-size: 0.7rem;
+  text-transform: capitalize;
+}
+
 .requirement-row {
   display: flex;
   align-items: center;
@@ -488,6 +509,39 @@ input[type="range"] {
 .dataset-meta {
   color: #8490a3;
   text-transform: capitalize;
+}
+
+.exact-match-badge {
+  margin: 0.8rem 0 0;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.65rem;
+  color: #166534;
+  background: #ecfdf3;
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.dataset-aliases {
+  margin: 0.65rem 0 0;
+  color: #8490a3;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.unresolved-group {
+  border: 1px solid #fed7aa;
+  border-radius: 0.9rem;
+  padding: 0.9rem;
+  background: #fff7ed;
+}
+
+.unresolved-list {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: #9a3412;
+  font-size: 0.82rem;
 }
 
 .explanation-list {

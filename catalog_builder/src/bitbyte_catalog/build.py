@@ -36,9 +36,11 @@ def build_catalog(
     catalog_version: str,
     source_versions: dict[str, str],
     stale_sources: list[str] | None = None,
+    registry_records: Iterable[DatasetRecord] = (),
 ) -> dict:
     output_dir.mkdir(parents=True, exist_ok=True)
-    deduplicated = deduplicate_records(list(records))
+    all_records = [*registry_records, *records]
+    deduplicated = deduplicate_records(all_records)
     serialized_records = [record.model_dump(mode="json") for record in deduplicated]
 
     dataset_schema = _read_schema("dataset.schema.json")
@@ -70,7 +72,9 @@ def build_catalog(
         "generated_at": generated_at,
         "record_count": len(serialized_records),
         "sources": _source_counts(deduplicated),
+        "registry_count": sum(record.identity.source == "curated" for record in deduplicated),
         "stale_sources": stale_sources or [],
+        "unknown_field_counts": _unknown_field_counts(deduplicated),
     }
 
     _write_json(output_dir / "records.json", serialized_records)
@@ -87,9 +91,10 @@ def build_live_catalog(
     output_dir: Path,
     source_cache_dir: Path,
     catalog_version: str,
-    source_limit: int = 100,
+    source_limit: int = 500,
     verify_links: bool = True,
     client: httpx.Client | None = None,
+    registry_records: Iterable[DatasetRecord] = (),
 ) -> dict:
     """Fetch all configured sources with last-known-good source fallback."""
 
@@ -155,6 +160,7 @@ def build_live_catalog(
         catalog_version=catalog_version,
         source_versions=source_versions,
         stale_sources=stale_sources,
+        registry_records=registry_records,
     )
 
 
@@ -201,6 +207,15 @@ def _source_status(records: list[DatasetRecord], stale_sources: list[str]) -> di
     for source in stale_sources:
         status.setdefault(source, {"record_count": 0, "stale": True})
     return status
+
+
+def _unknown_field_counts(records: list[DatasetRecord]) -> dict[str, int]:
+    return {
+        "subjects": sum(not record.fit.subjects for record in records),
+        "data_objects": sum(not record.fit.data_objects for record in records),
+        "tasks": sum(not record.fit.tasks for record in records),
+        "targets": sum(not record.fit.targets for record in records),
+    }
 
 
 def _utc_timestamp() -> str:

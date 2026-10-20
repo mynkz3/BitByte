@@ -12,7 +12,7 @@ class SourceAdapter(ABC):
     name: str
     endpoint: str
 
-    def fetch_records(self, client: httpx.Client, limit: int = 100) -> list[DatasetRecord]:
+    def fetch_records(self, client: httpx.Client, limit: int = 500) -> list[DatasetRecord]:
         if limit <= 0:
             raise ValueError("limit must be positive")
         response = client.get(self.endpoint, params=self.request_params(limit))

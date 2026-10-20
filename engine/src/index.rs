@@ -67,7 +67,11 @@ impl TextIndex {
     }
 
     pub fn raw_scores(&self, query: &str) -> Vec<f64> {
-        let query_terms = tokenize(query);
+        let query_terms = tokenize(query)
+            .into_iter()
+            .collect::<HashSet<_>>()
+            .into_iter()
+            .collect::<Vec<_>>();
 
         self.documents
             .iter()
@@ -108,6 +112,12 @@ fn index_record(record: &DatasetRecord) -> IndexedDocument {
     add_weighted_text(
         &mut term_frequency,
         &mut length,
+        &record.identity.aliases.join(" "),
+        1.5,
+    );
+    add_weighted_text(
+        &mut term_frequency,
+        &mut length,
         &structured_text(record),
         STRUCTURED_WEIGHT,
     );
@@ -135,6 +145,8 @@ fn structured_text(record: &DatasetRecord) -> String {
         record.fit.modalities.join(" "),
         record.fit.tasks.join(" "),
         record.fit.domains.join(" "),
+        record.fit.subjects.join(" "),
+        record.fit.data_objects.join(" "),
         record.fit.targets.join(" "),
         record.fit.languages.join(" "),
         record.fit.geography.join(" "),
