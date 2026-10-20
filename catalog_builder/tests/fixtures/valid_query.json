@@ -16,6 +16,16 @@
       "preferred": ["medical"],
       "excluded": []
     },
+    "subjects": {
+      "must_have": [],
+      "preferred": [],
+      "excluded": []
+    },
+    "data_objects": {
+      "must_have": [],
+      "preferred": [],
+      "excluded": []
+    },
     "targets": {
       "must_have": [],
       "preferred": ["retinopathy"],
@@ -31,6 +41,7 @@
       "preferred": [],
       "excluded": []
     },
+    "named_datasets": [],
     "required_splits": ["train", "test"],
     "min_records": 500,
     "max_records": null,
@@ -44,5 +55,11 @@
     "constraint_satisfaction": 0.1,
     "evaluation_readiness": 0.05,
     "quality_practical_fit": 0.05
+  },
+  "context": {
+    "goals": [],
+    "frameworks": [],
+    "models": [],
+    "metrics": []
   }
 }

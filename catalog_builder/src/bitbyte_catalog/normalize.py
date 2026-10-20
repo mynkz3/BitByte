@@ -222,6 +222,7 @@ def make_record(
             source_id=source_id,
             canonical_url=canonical_url,
             alternate_urls=[],
+            aliases=[],
         ),
         content=DatasetContent(
             title=title,
@@ -234,6 +235,8 @@ def make_record(
             modalities=normalized_modalities,
             tasks=normalized_tasks,
             domains=normalized_domains,
+            subjects=[],
+            data_objects=[],
             targets=normalized_targets,
             languages=normalized_languages,
             geography=[],
@@ -265,6 +268,6 @@ def make_record(
             adapter_version=f"{source}-0.1.0",
             extracted_at=extracted_at,
             source_updated_at=parse_datetime(source_updated_at),
-            schema_version="0.1.0",
+            schema_version="0.2.0",
         ),
     )

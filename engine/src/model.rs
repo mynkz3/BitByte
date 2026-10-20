@@ -27,6 +27,7 @@ pub struct DatasetIdentity {
     pub source_id: String,
     pub canonical_url: String,
     pub alternate_urls: Vec<String>,
+    pub aliases: Vec<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -43,6 +44,8 @@ pub struct DatasetFit {
     pub modalities: Vec<String>,
     pub tasks: Vec<String>,
     pub domains: Vec<String>,
+    pub subjects: Vec<String>,
+    pub data_objects: Vec<String>,
     pub targets: Vec<String>,
     pub languages: Vec<String>,
     pub geography: Vec<String>,
@@ -115,6 +118,7 @@ pub struct ResearchQuery {
     pub source_text: String,
     pub requirements: QueryRequirements,
     pub priorities: QueryPriorities,
+    pub context: QueryContext,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -122,13 +126,38 @@ pub struct QueryRequirements {
     pub modalities: MatchGroup,
     pub tasks: MatchGroup,
     pub domains: MatchGroup,
+    pub subjects: MatchGroup,
+    pub data_objects: MatchGroup,
     pub targets: MatchGroup,
     pub languages: MatchGroup,
     pub licenses: MatchGroup,
+    pub named_datasets: Vec<NamedDatasetReference>,
     pub required_splits: Vec<String>,
     pub min_records: Option<u64>,
     pub max_records: Option<u64>,
     pub only_verified: bool,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum NamedDatasetRole {
+    Anchor,
+    Comparison,
+    ContextOnly,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct NamedDatasetReference {
+    pub name: String,
+    pub role: NamedDatasetRole,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct QueryContext {
+    pub goals: Vec<String>,
+    pub frameworks: Vec<String>,
+    pub models: Vec<String>,
+    pub metrics: Vec<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]

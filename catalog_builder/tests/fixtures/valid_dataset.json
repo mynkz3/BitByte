@@ -4,7 +4,8 @@
     "source": "huggingface",
     "source_id": "bitbyte/demo-image",
     "canonical_url": "https://huggingface.co/datasets/bitbyte/demo-image",
-    "alternate_urls": []
+    "alternate_urls": [],
+    "aliases": []
   },
   "content": {
     "title": "Demo Image Classification Dataset",
@@ -17,6 +18,8 @@
     "modalities": ["image"],
     "tasks": ["classification"],
     "domains": ["medical"],
+    "subjects": [],
+    "data_objects": [],
     "targets": ["retinopathy"],
     "languages": [],
     "geography": [],
@@ -69,6 +72,6 @@
     "adapter_version": "huggingface-0.1.0",
     "extracted_at": "2026-10-19T00:00:00Z",
     "source_updated_at": null,
-    "schema_version": "0.1.0"
+    "schema_version": "0.2.0"
   }
 }

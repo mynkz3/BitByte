@@ -18,6 +18,7 @@ export interface DatasetRecord {
     source_id: string;
     canonical_url: string;
     alternate_urls: string[];
+    aliases: string[];
   };
   content: {
     title: string;
@@ -30,6 +31,8 @@ export interface DatasetRecord {
     modalities: string[];
     tasks: string[];
     domains: string[];
+    subjects: string[];
+    data_objects: string[];
     targets: string[];
     languages: string[];
     geography: string[];

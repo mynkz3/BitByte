@@ -4,13 +4,23 @@ export interface MatchGroup {
   excluded: string[];
 }
 
+export type NamedDatasetRole = "anchor" | "comparison" | "context_only";
+
+export interface NamedDatasetReference {
+  name: string;
+  role: NamedDatasetRole;
+}
+
 export interface QueryRequirements {
   modalities: MatchGroup;
   tasks: MatchGroup;
   domains: MatchGroup;
+  subjects: MatchGroup;
+  data_objects: MatchGroup;
   targets: MatchGroup;
   languages: MatchGroup;
   licenses: MatchGroup;
+  named_datasets: NamedDatasetReference[];
   required_splits: Array<"train" | "validation" | "test">;
   min_records: number | null;
   max_records: number | null;
@@ -27,8 +37,16 @@ export interface QueryPriorities {
   quality_practical_fit: number;
 }
 
+export interface QueryContext {
+  goals: string[];
+  frameworks: string[];
+  models: string[];
+  metrics: string[];
+}
+
 export interface ResearchQuery {
   source_text: string;
   requirements: QueryRequirements;
   priorities: QueryPriorities;
+  context: QueryContext;
 }

@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "modalities": [
     "tabular",
     "text",
@@ -35,9 +35,20 @@
     "retail",
     "robotics",
     "science",
+    "chemistry",
     "security",
     "social_science",
     "transportation"
+  ],
+  "subjects": [
+    "chemistry",
+    "molecular_property_prediction",
+    "animals",
+    "cats"
+  ],
+  "data_objects": [
+    "molecule",
+    "molecular_graph"
   ],
   "metrics": [
     "accuracy",
@@ -92,7 +103,21 @@
       "medical": ["clinical", "medicine", "healthcare", "disease"],
       "climate": ["weather", "environment", "climate science"],
       "finance": ["financial", "banking", "markets"],
-      "agriculture": ["farming", "crops", "agronomy"]
+      "agriculture": ["farming", "crops", "agronomy"],
+      "chemistry": ["chemical science", "molecular science"]
+    },
+    "subjects": {
+      "chemistry": ["chemical science", "molecular science"],
+      "molecular_property_prediction": [
+        "molecular property prediction",
+        "molecule property prediction"
+      ],
+      "animals": ["animal", "animal science"],
+      "cats": ["cat", "felines", "feline"]
+    },
+    "data_objects": {
+      "molecule": ["molecules", "chemical compound", "compound"],
+      "molecular_graph": ["molecular graph", "molecular graphs"]
     }
   }
 }

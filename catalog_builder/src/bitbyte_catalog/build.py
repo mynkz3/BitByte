@@ -48,7 +48,7 @@ def build_catalog(
     generated_at = _utc_timestamp()
     manifest = {
         "catalog_version": catalog_version,
-        "schema_version": "0.1.0",
+        "schema_version": "0.2.0",
         "generated_at": generated_at,
         "source_versions": source_versions,
         "record_counts": {
@@ -62,7 +62,7 @@ def build_catalog(
 
     artifact = {
         "catalog_version": catalog_version,
-        "schema_version": "0.1.0",
+        "schema_version": "0.2.0",
         "records": serialized_records,
     }
     report = {

@@ -4,7 +4,7 @@ import type { CatalogCache, CachedCatalog } from "../../lib/storage/catalogCache
 
 const manifest = {
   catalog_version: "catalog-1",
-  schema_version: "0.1.0",
+  schema_version: "0.2.0",
   generated_at: "2026-10-19T00:00:00Z",
   source_versions: { fixture: "1" },
   record_counts: { total: 1 },
@@ -14,7 +14,7 @@ const manifest = {
 
 const artifact = {
   catalog_version: "catalog-1",
-  schema_version: "0.1.0",
+  schema_version: "0.2.0",
   records: [],
 };
 

@@ -20,9 +20,12 @@ export function buildResearchQuery(
     modalities: emptyMatchGroup(),
     tasks: emptyMatchGroup(),
     domains: emptyMatchGroup(),
+    subjects: emptyMatchGroup(),
+    data_objects: emptyMatchGroup(),
     targets: emptyMatchGroup(),
     languages: emptyMatchGroup(),
     licenses: emptyMatchGroup(),
+    named_datasets: [],
     required_splits: [],
     min_records: null,
     max_records: null,
@@ -47,6 +50,12 @@ export function buildResearchQuery(
     source_text: `${sourceText.trim()}${metricContext}`.trim(),
     requirements,
     priorities,
+    context: {
+      goals: [],
+      frameworks: [],
+      models: [],
+      metrics,
+    },
   };
 }
 

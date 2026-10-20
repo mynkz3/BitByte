@@ -17,7 +17,14 @@
     "identity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "source", "source_id", "canonical_url", "alternate_urls"],
+      "required": [
+        "id",
+        "source",
+        "source_id",
+        "canonical_url",
+        "alternate_urls",
+        "aliases"
+      ],
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "source": { "type": "string", "minLength": 1 },
@@ -27,7 +34,8 @@
           "type": "array",
           "items": { "type": "string", "format": "uri" },
           "uniqueItems": true
-        }
+        },
+        "aliases": { "$ref": "#/$defs/stringList" }
       }
     },
     "content": {
@@ -53,6 +61,8 @@
         "modalities",
         "tasks",
         "domains",
+        "subjects",
+        "data_objects",
         "targets",
         "languages",
         "geography",
@@ -64,6 +74,8 @@
         "modalities": { "$ref": "#/$defs/stringList" },
         "tasks": { "$ref": "#/$defs/stringList" },
         "domains": { "$ref": "#/$defs/stringList" },
+        "subjects": { "$ref": "#/$defs/stringList" },
+        "data_objects": { "$ref": "#/$defs/stringList" },
         "targets": { "$ref": "#/$defs/stringList" },
         "languages": { "$ref": "#/$defs/stringList" },
         "geography": { "$ref": "#/$defs/stringList" },

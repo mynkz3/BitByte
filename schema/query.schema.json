@@ -4,7 +4,7 @@
   "title": "BitByte Research Query",
   "type": "object",
   "additionalProperties": false,
-  "required": ["source_text", "requirements", "priorities"],
+  "required": ["source_text", "requirements", "priorities", "context"],
   "properties": {
     "source_text": { "type": "string" },
     "requirements": {
@@ -14,9 +14,12 @@
         "modalities",
         "tasks",
         "domains",
+        "subjects",
+        "data_objects",
         "targets",
         "languages",
         "licenses",
+        "named_datasets",
         "required_splits",
         "min_records",
         "max_records",
@@ -26,9 +29,16 @@
         "modalities": { "$ref": "#/$defs/matchGroup" },
         "tasks": { "$ref": "#/$defs/matchGroup" },
         "domains": { "$ref": "#/$defs/matchGroup" },
+        "subjects": { "$ref": "#/$defs/matchGroup" },
+        "data_objects": { "$ref": "#/$defs/matchGroup" },
         "targets": { "$ref": "#/$defs/matchGroup" },
         "languages": { "$ref": "#/$defs/matchGroup" },
         "licenses": { "$ref": "#/$defs/matchGroup" },
+        "named_datasets": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/namedDatasetReference" },
+          "uniqueItems": true
+        },
         "required_splits": {
           "type": "array",
           "items": { "type": "string", "enum": ["train", "validation", "test"] },
@@ -39,6 +49,7 @@
         "only_verified": { "type": "boolean" }
       }
     },
+    "context": { "$ref": "#/$defs/queryContext" },
     "priorities": {
       "type": "object",
       "additionalProperties": false,
@@ -77,6 +88,29 @@
       "type": "array",
       "items": { "type": "string", "minLength": 1 },
       "uniqueItems": true
+    },
+    "namedDatasetReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "role"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "role": {
+          "type": "string",
+          "enum": ["anchor", "comparison", "context_only"]
+        }
+      }
+    },
+    "queryContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["goals", "frameworks", "models", "metrics"],
+      "properties": {
+        "goals": { "$ref": "#/$defs/stringList" },
+        "frameworks": { "$ref": "#/$defs/stringList" },
+        "models": { "$ref": "#/$defs/stringList" },
+        "metrics": { "$ref": "#/$defs/stringList" }
+      }
     }
   }
 }

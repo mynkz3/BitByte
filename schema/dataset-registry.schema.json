@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bitbyte.app/schema/dataset-registry.schema.json",
+  "title": "BitByte Canonical Dataset Registry",
+  "type": "array",
+  "items": { "$ref": "#/$defs/registryEntry" },
+  "$defs": {
+    "stringList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "uriList": {
+      "type": "array",
+      "items": { "type": "string", "format": "uri" },
+      "uniqueItems": true
+    },
+    "registryEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_name",
+        "aliases",
+        "source",
+        "source_ids",
+        "source_urls",
+        "subjects",
+        "data_objects",
+        "modalities",
+        "tasks",
+        "targets",
+        "evidence_level"
+      ],
+      "properties": {
+        "canonical_name": { "type": "string", "minLength": 1 },
+        "aliases": { "$ref": "#/$defs/stringList" },
+        "source": { "type": "string", "minLength": 1 },
+        "source_ids": { "$ref": "#/$defs/stringList" },
+        "source_urls": { "$ref": "#/$defs/uriList" },
+        "subjects": { "$ref": "#/$defs/stringList" },
+        "data_objects": { "$ref": "#/$defs/stringList" },
+        "modalities": { "$ref": "#/$defs/stringList" },
+        "tasks": { "$ref": "#/$defs/stringList" },
+        "targets": { "$ref": "#/$defs/stringList" },
+        "evidence_level": { "type": "string", "minLength": 1 },
+        "citation_identifiers": { "$ref": "#/$defs/stringList" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

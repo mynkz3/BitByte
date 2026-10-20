@@ -50,7 +50,7 @@ fn text_dataset() -> DatasetRecord {
 fn engine() -> RankingEngine {
     RankingEngine::from_catalog(CatalogArtifact {
         catalog_version: "test".to_owned(),
-        schema_version: "0.1.0".to_owned(),
+        schema_version: "0.2.0".to_owned(),
         records: vec![dataset_fixture(), text_dataset()],
     })
     .expect("test catalog should build")

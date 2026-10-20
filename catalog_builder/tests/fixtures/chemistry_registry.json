@@ -1,0 +1,49 @@
+[
+  {
+    "canonical_name": "ESOL",
+    "aliases": ["Delaney solubility", "delaney"],
+    "source": "curated",
+    "source_ids": ["esol", "delaney"],
+    "source_urls": [
+      "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html"
+    ],
+    "subjects": ["chemistry", "molecular_property_prediction"],
+    "data_objects": ["molecule", "molecular_graph"],
+    "modalities": ["graph"],
+    "tasks": ["regression"],
+    "targets": ["solubility"],
+    "evidence_level": "curated_reference",
+    "citation_identifiers": ["delaney2004"]
+  },
+  {
+    "canonical_name": "BACE",
+    "aliases": ["bace classification"],
+    "source": "curated",
+    "source_ids": ["bace"],
+    "source_urls": [
+      "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html"
+    ],
+    "subjects": ["chemistry", "molecular_property_prediction"],
+    "data_objects": ["molecule", "molecular_graph"],
+    "modalities": ["graph"],
+    "tasks": ["classification"],
+    "targets": ["binding"],
+    "evidence_level": "curated_reference"
+  },
+  {
+    "canonical_name": "Lipophilicity",
+    "aliases": ["delaney lipophilicity", "lipophilicity"],
+    "source": "curated",
+    "source_ids": ["lipophilicity"],
+    "source_urls": [
+      "https://deepchem.readthedocs.io/en/latest/api_reference/moleculenet.html"
+    ],
+    "subjects": ["chemistry", "molecular_property_prediction"],
+    "data_objects": ["molecule", "molecular_graph"],
+    "modalities": ["graph"],
+    "tasks": ["regression"],
+    "targets": ["lipophilicity"],
+    "evidence_level": "curated_reference",
+    "notes": "MoleculeNet benchmark identity for lipophilicity regression."
+  }
+]

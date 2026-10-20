@@ -16,6 +16,7 @@ class DatasetIdentity(StrictModel):
     source_id: str = Field(min_length=1)
     canonical_url: str
     alternate_urls: list[str]
+    aliases: list[str]
 
 
 class DatasetContent(StrictModel):
@@ -35,6 +36,8 @@ class DatasetFit(StrictModel):
     modalities: list[str]
     tasks: list[str]
     domains: list[str]
+    subjects: list[str]
+    data_objects: list[str]
     targets: list[str]
     languages: list[str]
     geography: list[str]
@@ -117,13 +120,28 @@ class MatchGroup(StrictModel):
     excluded: list[str]
 
 
+class NamedDatasetReference(StrictModel):
+    name: str = Field(min_length=1)
+    role: Literal["anchor", "comparison", "context_only"]
+
+
+class QueryContext(StrictModel):
+    goals: list[str]
+    frameworks: list[str]
+    models: list[str]
+    metrics: list[str]
+
+
 class QueryRequirements(StrictModel):
     modalities: MatchGroup
     tasks: MatchGroup
     domains: MatchGroup
+    subjects: MatchGroup
+    data_objects: MatchGroup
     targets: MatchGroup
     languages: MatchGroup
     licenses: MatchGroup
+    named_datasets: list[NamedDatasetReference]
     required_splits: list[Literal["train", "validation", "test"]]
     min_records: int | None = Field(default=None, ge=0)
     max_records: int | None = Field(default=None, ge=0)
@@ -144,3 +162,4 @@ class ResearchQuery(StrictModel):
     source_text: str
     requirements: QueryRequirements
     priorities: QueryPriorities
+    context: QueryContext
