@@ -1,0 +1,72 @@
+name: Dataset Catalog
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  build-catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install catalog-builder dependencies
+        working-directory: catalog_builder
+        run: python -m pip install -e ".[test]"
+
+      - name: Restore source snapshots
+        uses: actions/cache@v4
+        with:
+          path: catalog/source-cache
+          key: bitbyte-source-cache-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: bitbyte-source-cache-${{ github.ref_name }}-
+
+      - name: Build live catalog
+        id: catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(date -u +%Y%m%dT%H%M%SZ)"
+          echo "catalog_version=$version" >> "$GITHUB_OUTPUT"
+          python -m bitbyte_catalog live \
+            --output catalog/build \
+            --source-cache catalog/source-cache \
+            --catalog-version "$version" \
+            --limit 100
+
+      - name: Build browser index
+        run: |
+          mkdir -p "catalog/versions/${{ steps.catalog.outputs.catalog_version }}"
+          cargo run -p bitbyte-indexer -- \
+            --input catalog/build/index-input.json \
+            --output "catalog/versions/${{ steps.catalog.outputs.catalog_version }}/index.json"
+          cp catalog/build/manifest.json catalog/manifest.json
+
+      - name: Validate catalog artifacts
+        run: |
+          test -s catalog/manifest.json
+          test -s "catalog/versions/${{ steps.catalog.outputs.catalog_version }}/index.json"
+          python -m pytest catalog_builder/tests -q
+
+      - name: Upload catalog artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bitbyte-catalog
+          path: |
+            catalog/manifest.json
+            catalog/versions/${{ steps.catalog.outputs.catalog_version }}/index.json
+          if-no-files-found: error
+          retention-days: 30

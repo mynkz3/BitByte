@@ -11,14 +11,21 @@ class OpenMLAdapter(SourceAdapter):
     endpoint = "https://www.openml.org/api/v1/json/data/list/data_name"
 
     def extract_records(self, payload: Any) -> list[dict[str, Any]]:
-        if not isinstance(payload, dict) or not isinstance(payload.get("data"), list):
-            raise ValueError("OpenML response must contain a data list")
-        return payload["data"]
+        data = payload.get("data") if isinstance(payload, dict) else None
+        records = data.get("dataset") if isinstance(data, dict) else data
+        if not isinstance(records, list):
+            raise ValueError("OpenML response must contain a data.dataset list")
+        return records
 
     def normalize(self, raw: dict[str, Any]):
         source_id = str(raw.get("did", "")).strip()
         if not source_id:
             raise ValueError("OpenML record is missing did")
+        quality = {
+            str(item.get("name")): item.get("value")
+            for item in raw.get("quality", [])
+            if isinstance(item, dict) and item.get("name")
+        }
         description = str(raw.get("description") or "")
         task_values = infer_tasks(
             [raw.get("default_target_attribute", ""), raw.get("name", ""), description]
@@ -37,9 +44,13 @@ class OpenMLAdapter(SourceAdapter):
             if raw.get("default_target_attribute")
             else [],
             languages=[],
-            license_value=raw.get("licence"),
-            records=_integer_or_none(raw.get("NumberOfInstances")),
-            features=_integer_or_none(raw.get("NumberOfFeatures")),
+            license_value=raw.get("licence") or raw.get("license"),
+            records=_integer_or_none(
+                raw.get("NumberOfInstances") or quality.get("NumberOfInstances")
+            ),
+            features=_integer_or_none(
+                raw.get("NumberOfFeatures") or quality.get("NumberOfFeatures")
+            ),
         )
 
 

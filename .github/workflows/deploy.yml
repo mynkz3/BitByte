@@ -1,0 +1,120 @@
+name: Deploy BitByte
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Dataset Catalog"]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Install wasm-pack
+        uses: jetli/wasm-pack-action@v0.4.0
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install catalog-builder dependencies
+        working-directory: catalog_builder
+        run: python -m pip install -e ".[test]"
+
+      - name: Restore source snapshots
+        if: github.event_name != 'workflow_run'
+        uses: actions/cache@v4
+        with:
+          path: catalog/source-cache
+          key: bitbyte-source-cache-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: bitbyte-source-cache-${{ github.ref_name }}-
+
+      - name: Build live catalog
+        if: github.event_name != 'workflow_run'
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(date -u +%Y%m%dT%H%M%SZ)-${GITHUB_SHA::7}"
+          python -m bitbyte_catalog live \
+            --output catalog/build \
+            --source-cache catalog/source-cache \
+            --catalog-version "$version" \
+            --limit 100
+          mkdir -p "catalog/versions/$version"
+          cargo run -p bitbyte-indexer -- \
+            --input catalog/build/index-input.json \
+            --output "catalog/versions/$version/index.json"
+          cp catalog/build/manifest.json catalog/manifest.json
+
+      - name: Download scheduled catalog artifact
+        if: github.event_name == 'workflow_run'
+        uses: actions/download-artifact@v4
+        with:
+          name: bitbyte-catalog
+          path: catalog
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Copy catalog into static application
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(python -c 'import json; print(json.load(open("catalog/manifest.json", encoding="utf-8"))["catalog_version"])')"
+          test -s "catalog/versions/$version/index.json"
+          mkdir -p "web/public/catalog/$version"
+          cp catalog/manifest.json web/public/catalog/manifest.json
+          cp "catalog/versions/$version/index.json" "web/public/catalog/$version/index.json"
+
+      - name: Build static application
+        run: npm run build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

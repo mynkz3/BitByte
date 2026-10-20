@@ -27,7 +27,7 @@ def test_huggingface_adapter_normalizes_metadata() -> None:
 
 
 def test_openml_adapter_normalizes_structured_metadata() -> None:
-    raw = read_fixture("openml_response.json")["data"][0]
+    raw = read_fixture("openml_response.json")["data"]["dataset"][0]
     record = OpenMLAdapter().normalize(raw)
 
     assert record.identity.source == "openml"
@@ -59,3 +59,34 @@ def test_huggingface_fetch_uses_mocked_http() -> None:
 
     assert len(records) == 1
     assert records[0].identity.id == "huggingface:bitbyte/demo-image"
+
+
+def test_openml_fetch_reads_nested_dataset_list_and_caps_limit() -> None:
+    payload = read_fixture("openml_response.json")
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/api/v1/json/data/list/data_name"
+        assert request.url.params["limit"] == "1"
+        return httpx.Response(200, json=payload)
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    records = OpenMLAdapter().fetch_records(client, limit=1)
+
+    assert len(records) == 1
+    assert records[0].identity.id == "openml:1"
+
+
+def test_uci_fetch_uses_current_list_endpoint_and_caps_limit() -> None:
+    payload = read_fixture("uci_response.json")
+    payload["data"].append({**payload["data"][0], "id": 2})
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/api/datasets/list"
+        assert request.url.params["filter"] == "python"
+        return httpx.Response(200, json=payload)
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    records = UciAdapter().fetch_records(client, limit=1)
+
+    assert len(records) == 1
+    assert records[0].identity.id == "uci:1"

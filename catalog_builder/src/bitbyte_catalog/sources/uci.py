@@ -8,7 +8,10 @@ from .base import SourceAdapter
 
 class UciAdapter(SourceAdapter):
     name = "uci"
-    endpoint = "https://archive.ics.uci.edu/api/datasets"
+    endpoint = "https://archive.ics.uci.edu/api/datasets/list"
+
+    def request_params(self, limit: int) -> dict[str, Any]:
+        return {"filter": "python"}
 
     def extract_records(self, payload: Any) -> list[dict[str, Any]]:
         if not isinstance(payload, dict) or not isinstance(payload.get("data"), list):
