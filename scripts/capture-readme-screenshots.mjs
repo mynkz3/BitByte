@@ -6,8 +6,8 @@ const outputDir = "docs/assets/screenshots";
 
 const examples = [
   {
-    slug: "breast-cancer-results",
-    text: "I need the Breast Cancer Wisconsin (Diagnostic) dataset for a medical tabular classification model. The target is diagnosis from patient records. I want train and test data and will evaluate with accuracy and F1.",
+    slug: "medical-context-results",
+    text: "I am building a medical classification model to predict whether a breast tumor is benign or malignant from digitized diagnostic measurements. I need tabular patient-level records, a diagnosis target, train/test data, and I will compare accuracy and F1 while training the model.",
   },
   {
     slug: "iris-results",

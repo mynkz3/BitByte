@@ -26,7 +26,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/assets/screenshots/breast-cancer-results.png" alt="BitByte showing a Breast Cancer Wisconsin dataset match with an exact alias explanation" width="100%" />
+  <img src="docs/assets/screenshots/medical-context-results.png" alt="BitByte retrieving the Breast Cancer Wisconsin dataset from medical classification context without the dataset being named" width="100%" />
 </p>
 
 > **The short version:** BitByte keeps the research text in the browser, extracts named datasets and research context deterministically, and ranks local catalog records with visible evidence instead of opaque keyword similarity.
@@ -39,7 +39,7 @@ paragraph and a search box. BitByte is designed around the researcher's intent:
 
 | What the researcher says | What BitByte preserves |
 | --- | --- |
-| “Use the Breast Cancer Wisconsin dataset for diagnosis.” | Named dataset identity, alias, target, medical subject, patient-record object |
+| “Predict whether a breast tumor is benign or malignant from diagnostic measurements.” | Medical subject, tabular modality, patient-record object, diagnosis target, classification task |
 | “Classify Iris species from flower measurements.” | Exact `Iris` identity, tabular modality, classification task, species target |
 | “Evaluate ESOL and BACE with a GNN using MAE.” | Dataset roles, chemistry context, model/framework context, evaluation metrics |
 
@@ -57,15 +57,19 @@ signals do not silently become hard filters, and every result can explain its ma
 Try either of these directly in the [live demo](https://mynkz3.github.io/BitByte/):
 
 <details open>
-<summary><strong>Breast Cancer Wisconsin — clinical tabular classification</strong></summary>
+<summary><strong>Context-only medical diagnosis — no dataset name</strong></summary>
 
 ```text
-I need the Breast Cancer Wisconsin (Diagnostic) dataset for a medical tabular
-classification model. The target is diagnosis from patient records. I want
-train and test data and will evaluate with accuracy and F1.
+I am building a medical classification model to predict whether a breast tumor
+is benign or malignant from digitized diagnostic measurements. I need tabular
+patient-level records, a diagnosis target, train/test data, and I will compare
+accuracy and F1 while training the model.
 ```
 
 </details>
+
+The important detail: **the dataset name is not in that prompt**. BitByte has to
+retrieve the best match from the project context, not from an exact name.
 
 <details>
 <summary><strong>Iris — flower measurements and species</strong></summary>
@@ -88,10 +92,10 @@ used for retrieval.
 </p>
 
 <details>
-<summary><strong>Open the full Breast Cancer confirmation view</strong></summary>
+<summary><strong>Open the full context-only medical confirmation view</strong></summary>
 
 <p align="center">
-  <img src="docs/assets/screenshots/breast-cancer-results-context.png" alt="BitByte confirmation view showing Breast Cancer Wisconsin, medical subject, patient records, tabular modality, diagnosis, classification, accuracy, and F1" width="100%" />
+  <img src="docs/assets/screenshots/medical-context-results-context.png" alt="BitByte confirmation view showing medical subject, patient records, tabular modality, diagnosis, classification, accuracy, and F1 without a named dataset" width="100%" />
 </p>
 
 </details>
@@ -104,11 +108,11 @@ ranking.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/assets/screenshots/breast-cancer-results.png" alt="Breast Cancer Wisconsin results" /></td>
+    <td width="50%"><img src="docs/assets/screenshots/medical-context-results.png" alt="Context-driven Breast Cancer Wisconsin result" /></td>
     <td width="50%"><img src="docs/assets/screenshots/iris-results.png" alt="Iris results" /></td>
   </tr>
   <tr>
-    <td align="center"><strong>Breast Cancer Wisconsin</strong><br />Exact alias + medical/tabular context</td>
+    <td align="center"><strong>Context-driven medical match</strong><br />Best dataset retrieved without naming it</td>
     <td align="center"><strong>Iris</strong><br />Exact alias + flower-measurement context</td>
   </tr>
 </table>
@@ -264,7 +268,7 @@ With the dev server running:
 node scripts/capture-readme-screenshots.mjs
 ```
 
-The script exercises the Breast Cancer Wisconsin and Iris flows and writes the
+The script exercises a context-only medical flow and an Iris flow and writes the
 images to [`docs/assets/screenshots/`](docs/assets/screenshots/).
 
 ## Verification
@@ -297,7 +301,7 @@ The regression suite covers:
 - 13-value WASM score transport;
 - catalog registry materialization and schema validation;
 - grouped confirmation and result views;
-- the original natural-language flow plus Breast Cancer and Iris browser flows.
+- the original natural-language flow plus context-only medical and Iris browser flows.
 
 ## Deployment
 
